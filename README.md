@@ -1,2 +1,2 @@
-# BAH.K3.Solution
+# BAH.Solution
 Make Easy For K/3 Cloud
