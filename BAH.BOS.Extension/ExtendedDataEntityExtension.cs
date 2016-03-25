@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.K3.Extension
+namespace Kingdee.BOS.Core
 {
     public static class ExtendedDataEntityExtension
     {
@@ -16,7 +16,7 @@ namespace BAH.K3.Extension
             }
             else
             {
-                return (T)dataObject[propertyName];
+                return dataObject[propertyName].ToType<T>();
             }
         }//end method
     }//end class

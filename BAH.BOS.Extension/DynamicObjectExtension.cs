@@ -16,7 +16,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             }
             else
             {
-                return (T)dataObject[propertyName];
+                return dataObject[propertyName].ToType<T>();
             }
         }//end method
 
@@ -26,7 +26,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             return Property<T>(dataObject, propertyName);
         }//end method
 
-        public static DynamicObjectCollection CollectionProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
+        public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
             return Property<DynamicObjectCollection>(dataObject, entryName);
