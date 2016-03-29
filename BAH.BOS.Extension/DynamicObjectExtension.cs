@@ -28,8 +28,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
-            var collection = EntryProperty(dataObject, businessInfo, keyName);
-            return collection == null || !collection.Any() ? default(DynamicObject) : collection.FirstOrDefault();
+            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
         }//end method
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
