@@ -1,5 +1,4 @@
-# BAH.Solution
-Make Easy For K/3 Cloud
+# BAH.Solution——来自K/3 Cloud伙伴的解决方案
 
 这是通常的数据包访问形式。
 ```java
@@ -12,7 +11,9 @@ var materialId = this.Model.GetValue("FMaterialId").ToType<DynamicObject>().PkId
 ```
 
 如果上述案例不够有说服力，请往下看：
+
 假如从一个普通的业务单据上，取物料字段的库存单位编码，
+
 通常是这样访问数据包的。
 ```java
 var material = this.Model.GetValue("FMaterialId") as DynamicObject;
@@ -21,8 +22,9 @@ var storeUnit = materialStock["StoreUnitId"] as DynamicObject;
 var storeUnitNumber = (string)storeUnit["Number"];
 ```
 
-//引用扩展后访问一条龙，中间不带喘气，
-//写Linq或Lambda更加从容不迫。
+引用扩展后访问一条龙，中间不带喘气，
+
+写Linq或Lambda更加从容不迫。
 ```java
 var storeUnitNumber = this.Model.GetValue("FMaterialId").ToType<DynamicObject>()
                           .Property<DynamicObjectCollection>("MaterialStock").FirstOrNullDefault()
