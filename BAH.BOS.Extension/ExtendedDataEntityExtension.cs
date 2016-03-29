@@ -1,4 +1,6 @@
 ﻿using Kingdee.BOS.Core;
+using Kingdee.BOS.Core.Metadata;
+using Kingdee.BOS.Orm.DataEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +21,17 @@ namespace Kingdee.BOS.Core
                 return dataObject[propertyName].ToType<T>();
             }
         }//end method
+
+        public static T FieldProperty<T>(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
+        {
+            return Property<T>(dataObject, businessInfo.GetField(keyName).PropertyName);
+        }//end method
+
+        public static DynamicObjectCollection EntryProperty(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
+        {
+            string entryName = businessInfo.GetEntity(keyName).EntryName;
+            return Property<DynamicObjectCollection>(dataObject, entryName);
+        }
+
     }//end class
 }//end namespace

@@ -26,6 +26,12 @@ namespace Kingdee.BOS.Orm.DataEntity
             return Property<T>(dataObject, propertyName);
         }//end method
 
+        public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
+        {
+            var collection = EntryProperty(dataObject, businessInfo, keyName);
+            return collection == null || !collection.Any() ? default(DynamicObject) : collection.FirstOrDefault();
+        }//end method
+
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
