@@ -1,4 +1,5 @@
 ﻿using Kingdee.BOS.Core.Metadata;
+using Kingdee.BOS.ServiceHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace Kingdee.BOS.Orm.DataEntity
 {
     public static class DynamicObjectExtension
     {
+        #region 基础方法
+
         public static T Property<T>(this DynamicObject dataObject, string propertyName)
         {
             if (dataObject == null || dataObject[propertyName] == null)
@@ -37,6 +40,17 @@ namespace Kingdee.BOS.Orm.DataEntity
             return Property<DynamicObjectCollection>(dataObject, entryName);
         }//end method
 
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
+        {
+            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
+            var pkArray = new object[] { dataObject.PkId<object>() };
+            return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
+        }//end method
+
+        #endregion
+
+        #region 主要元素
+
         public static T PkId<T>(this DynamicObject dataObject)
         {
             return dataObject.Property<T>("Id");
@@ -46,6 +60,10 @@ namespace Kingdee.BOS.Orm.DataEntity
         {
             return dataObject.Property<int>("Seq");
         }//end method
+
+        #endregion
+
+        #region 辅助资料
 
         public static string ADNumber(this DynamicObject dataObject)
         {
@@ -61,6 +79,10 @@ namespace Kingdee.BOS.Orm.DataEntity
         {
             return dataObject.Property<LocaleValue>("FDataValue").Value(localeId);
         }//end method
+
+        #endregion
+
+        #region 基础资料
 
         public static string BDNumber(this DynamicObject dataObject)
         {
@@ -81,6 +103,8 @@ namespace Kingdee.BOS.Orm.DataEntity
         {
             return dataObject.Property<string>("BillNo");
         }//end method
+
+        #endregion
 
     }//end class
 }//end namespace

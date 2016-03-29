@@ -11,11 +11,12 @@ namespace Kingdee.BOS
         public static string Value(this LocaleValue localeValue, int localeId)
         {
             return localeValue == null ? string.Empty : localeValue.GetString(localeId);
-        }
+        }//end method
 
         public static string Value(this LocaleValue localeValue, Context ctx)
         {
             return Value(localeValue, ctx.UserLocale.LCID);
-        }
+        }//end method
+
     }//end class
 }//end namespace

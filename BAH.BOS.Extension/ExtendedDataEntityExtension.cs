@@ -27,11 +27,16 @@ namespace Kingdee.BOS.Core
             return Property<T>(dataObject, businessInfo.GetField(keyName).PropertyName);
         }//end method
 
+        public static DynamicObject SubHeadProperty(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
+        {
+            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
+        }//end method
+
         public static DynamicObjectCollection EntryProperty(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
             return Property<DynamicObjectCollection>(dataObject, entryName);
-        }
+        }//end method
 
     }//end class
 }//end namespace

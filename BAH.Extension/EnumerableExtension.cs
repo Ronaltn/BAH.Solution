@@ -15,11 +15,16 @@ namespace System.Linq
         public static bool AnyOrNull<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             return source == null ? false : source.Any(predicate);
-        }
+        }//end method
 
         public static TSource FirstOrNullDefault<TSource>(this IEnumerable<TSource> source)
         {
-            return source == null || !source.Any() ? default(TSource) : source.FirstOrDefault();
+            return AnyOrNull<TSource>(source) ? default(TSource) : source.FirstOrDefault();
+        }//end method
+
+        public static TSource FirstOrNullDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            return AnyOrNull<TSource>(source) ? default(TSource) : source.FirstOrDefault(predicate);
         }//end method
 
     }//end class
