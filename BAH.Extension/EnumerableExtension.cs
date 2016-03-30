@@ -19,12 +19,12 @@ namespace System.Linq
 
         public static TSource FirstOrNullDefault<TSource>(this IEnumerable<TSource> source)
         {
-            return AnyOrNull<TSource>(source) ? default(TSource) : source.FirstOrDefault();
+            return AnyOrNull<TSource>(source) ? source.FirstOrDefault() : default(TSource);
         }//end method
 
         public static TSource FirstOrNullDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            return AnyOrNull<TSource>(source) ? default(TSource) : source.FirstOrDefault(predicate);
+            return AnyOrNull<TSource>(source) ? source.FirstOrDefault(predicate) : default(TSource);
         }//end method
 
     }//end class
