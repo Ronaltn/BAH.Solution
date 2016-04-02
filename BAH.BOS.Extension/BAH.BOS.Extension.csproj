@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicObjectCollectionExtension.cs" />
     <Compile Include="DynamicObjectExtension.cs" />
     <Compile Include="ExtendedDataEntityExtension.cs" />
     <Compile Include="LocaleValueExtension.cs" />

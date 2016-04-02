@@ -1,4 +1,6 @@
 ﻿using Kingdee.BOS.Core.Metadata;
+using Kingdee.BOS.Core.Metadata.EntityElement;
+using Kingdee.BOS.Core.Metadata.FieldElement;
 using Kingdee.BOS.ServiceHelper;
 using System;
 using System.Collections.Generic;
@@ -13,14 +15,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T Property<T>(this DynamicObject dataObject, string propertyName)
         {
-            if (dataObject == null || dataObject[propertyName] == null)
-            {
-                return default(T);
-            }
-            else
-            {
-                return dataObject[propertyName].ToType<T>();
-            }
+            return dataObject == null ? default(T) : dataObject[propertyName].ToTypeOrDefault<T>();
         }//end method
 
         public static T FieldProperty<T>(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
@@ -29,15 +24,30 @@ namespace Kingdee.BOS.Orm.DataEntity
             return Property<T>(dataObject, propertyName);
         }//end method
 
-        public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
+        public static T FieldProperty<T>(this DynamicObject dataObject, Field field)
         {
-            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
+            return field.DynamicProperty.GetValue<T>(dataObject);
         }//end method
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
             return Property<DynamicObjectCollection>(dataObject, entryName);
+        }//end method
+
+        public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, Entity entity)
+        {
+            return entity.DynamicProperty.GetValue<DynamicObjectCollection>(dataObject);
+        }//end method
+
+        public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
+        {
+            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
+        }//end method
+
+        public static DynamicObject SubHeadProperty(this DynamicObject dataObject, Entity entity)
+        {
+            return EntryProperty(dataObject, entity).FirstOrNullDefault();
         }//end method
 
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
@@ -89,9 +99,19 @@ namespace Kingdee.BOS.Orm.DataEntity
             return dataObject.Property<string>("Number");
         }//end method
 
+        public static string BDNumber(this DynamicObject dataObject, BaseDataField field)
+        {
+            return field.GetRefPropertyValue(dataObject, "FNumber").ToTypeOrDefault<string>();
+        }//end method
+
         public static string BDName(this DynamicObject dataObject, int localeId)
         {
             return dataObject.Property<LocaleValue>("Name").Value(localeId);
+        }//end method
+
+        public static string BDName(this DynamicObject dataObject, BaseDataField field, int localeId)
+        {
+            return field.GetRefPropertyValue(dataObject, "FName").ToTypeOrDefault<LocaleValue>().Value(localeId);
         }//end method
 
         public static string BDName(this DynamicObject dataObject, Context ctx)
@@ -99,9 +119,19 @@ namespace Kingdee.BOS.Orm.DataEntity
             return BDName(dataObject, ctx.UserLocale.LCID);
         }//end method
 
+        public static string BDName(this DynamicObject dataObject, BaseDataField field, Context ctx)
+        {
+            return field.GetRefPropertyValue(dataObject, "FName").ToTypeOrDefault<LocaleValue>().Value(ctx);
+        }//end method
+
         public static string BillNo(this DynamicObject dataObject)
         {
             return dataObject.Property<string>("BillNo");
+        }//end method
+
+        public static string BillNo(this DynamicObject dataObject, Field field)
+        {
+            return field.DynamicProperty.GetValue<string>(dataObject);
         }//end method
 
         #endregion
