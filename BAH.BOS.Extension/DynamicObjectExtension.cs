@@ -15,7 +15,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T Property<T>(this DynamicObject dataObject, string propertyName)
         {
-            return dataObject == null ? default(T) : dataObject[propertyName].ToTypeOrDefault<T>();
+            return dataObject == null || dataObject[propertyName] == null ? default(T) : dataObject[propertyName].ToType<T>();
         }//end method
 
         public static T FieldProperty<T>(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
