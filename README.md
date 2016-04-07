@@ -2,7 +2,7 @@
 
 这是通常的数据包访问形式。
 ```cs
-var materialId = (int)((this.Model.GetValue("FMaterialId") as DynamicObject)["Id"]);
+var materialId = Convert.ToInt32(((this.Model.GetValue("FMaterialId") as DynamicObject)["Id"]));
 ```
 
 
