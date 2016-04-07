@@ -1,5 +1,7 @@
 ﻿using Kingdee.BOS.Core;
 using Kingdee.BOS.Core.Metadata;
+using Kingdee.BOS.Core.Metadata.EntityElement;
+using Kingdee.BOS.Core.Metadata.FieldElement;
 using Kingdee.BOS.Orm.DataEntity;
 using System;
 using System.Collections.Generic;
@@ -14,38 +16,56 @@ namespace Kingdee.BOS.Core
 
         public static T Property<T>(this ExtendedDataEntity dataObject, string propertyName)
         {
-            return dataObject[propertyName] == null ? default(T) : dataObject[propertyName].ToType<T>();
+            return dataObject.DataEntity.Property<T>(propertyName);
         }//end method
 
         public static T FieldProperty<T>(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
         {
-            string propertyName = businessInfo.GetField(keyName).PropertyName;
-            return Property<T>(dataObject, propertyName);
+            return dataObject.DataEntity.FieldProperty<T>(businessInfo, keyName);
+        }//end method
+
+        public static T FieldProperty<T>(this ExtendedDataEntity dataObject, Field field)
+        {
+            return dataObject.DataEntity.FieldProperty<T>(field);
         }//end method
 
         public static DynamicObjectCollection EntryProperty(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
         {
-            string entryName = businessInfo.GetEntity(keyName).EntryName;
-            return Property<DynamicObjectCollection>(dataObject, entryName);
+            return dataObject.DataEntity.EntryProperty(businessInfo, keyName);
+        }//end method
+
+        public static DynamicObjectCollection EntryProperty(this ExtendedDataEntity dataObject, Entity entity)
+        {
+            return dataObject.DataEntity.EntryProperty(entity);
         }//end method
 
         public static DynamicObject SubHeadProperty(this ExtendedDataEntity dataObject, BusinessInfo businessInfo, string keyName)
         {
-            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
+            return dataObject.DataEntity.SubHeadProperty(businessInfo, keyName);
+        }//end method
+
+        public static DynamicObject SubHeadProperty(this ExtendedDataEntity dataObject, Entity entity)
+        {
+            return dataObject.DataEntity.SubHeadProperty(entity);
         }//end method
 
         #endregion
 
         #region 主要元素
 
+        public static string PkId(this ExtendedDataEntity dataObject)
+        {
+            return dataObject.DataEntity.PkId();
+        }//end method
+
         public static T PkId<T>(this ExtendedDataEntity dataObject)
         {
-            return dataObject.Property<T>("Id");
+            return dataObject.DataEntity.PkId<T>();
         }//end method
 
         public static int Seq(this ExtendedDataEntity dataObject)
         {
-            return dataObject.Property<int>("Seq");
+            return dataObject.DataEntity.Seq();
         }//end method
 
         #endregion
