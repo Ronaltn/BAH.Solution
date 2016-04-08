@@ -11,7 +11,7 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, string formId)
         {
             var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            var pkArray = dataObject.Select(data => data.PkId<object>()).ToArray();
+            var pkArray = dataObject.Select(data => data.PkId()).ToArray();
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type);
         }//end method
 

@@ -53,7 +53,7 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
         {
             var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            var pkArray = new object[] { dataObject.PkId<object>() };
+            var pkArray = new object[] { dataObject.PkId() };
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
         }//end method
 
