@@ -116,7 +116,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BDName(this DynamicObject dataObject, BaseDataField field, int localeId)
         {
-            return field.GetRefPropertyValue(dataObject, "FName").ToTypeOrDefault<LocaleValue>().Value(localeId);
+            return field.GetRefPropertyValue(dataObject, "FName").ToType<LocaleValue>().Value(localeId);
         }//end method
 
         public static string BDName(this DynamicObject dataObject, Context ctx)
@@ -126,7 +126,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BDName(this DynamicObject dataObject, BaseDataField field, Context ctx)
         {
-            return field.GetRefPropertyValue(dataObject, "FName").ToTypeOrDefault<LocaleValue>().Value(ctx);
+            return field.GetRefPropertyValue(dataObject, "FName").ToType<LocaleValue>().Value(ctx);
         }//end method
 
         public static string BillNo(this DynamicObject dataObject)
