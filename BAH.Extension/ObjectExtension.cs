@@ -6,51 +6,51 @@ using System.Text;
 namespace System
 {
     /// <summary>
-    /// Objectd对象的扩展类。
+    /// Object对象的扩展类。
     /// </summary>
     public static class ObjectExtension
     {
         /// <summary>
-        /// 
+        /// 隐式转换。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回结果。</returns>
         public static T ToType<T>(this object obj)
         {
             return (T)obj;
         }//end method
 
         /// <summary>
-        /// 
+        /// 显式转换。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回结果。</returns>
         public static T ToChangeType<T>(this object obj)
         {
-            return (T)Convert.ChangeType(obj, typeof(T));
+            return (T)Convert.ChangeType(obj, typeof(T), default(IFormatProvider));
         }//end method
 
         /// <summary>
-        /// 匿名对象转换专用。
+        /// 隐式转换，匿名对象转换专用。
         /// </summary>
         /// <url>http://www.cnblogs.com/tianxiang2046/p/3586537.html</url>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
         /// <param name="t">匿名对象的初始化结构，例如：new{ Name = string.Empty, Age = 0 }。</param>
-        /// <returns></returns>
+        /// <returns>返回结果。</returns>
         public static T ToAnonymousType<T>(this object obj, T t)
         {
             return (T)obj;
         }//end method
 
         /// <summary>
-        /// 
+        /// 隐式转换，如果有异常则直接返回结果类型的默认值。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回结果。</returns>
         public static T ToTypeOrDefault<T>(this object obj)
         {
             try
@@ -64,11 +64,11 @@ namespace System
         }//end method
 
         /// <summary>
-        /// 
+        /// 显式转换，如果有异常则直接返回结果类型的默认值。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回结果。</returns>
         public static T ToChangeTypeOrDefault<T>(this object obj)
         {
             try
@@ -82,13 +82,13 @@ namespace System
         }//end method
 
         /// <summary>
-        /// 匿名对象转换专用。
+        /// 隐式转换，如果有异常则直接返回结果类型的默认值，匿名对象转换专用。
         /// </summary>
         /// <url>http://www.cnblogs.com/tianxiang2046/p/3586537.html</url>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
         /// <param name="t">匿名对象的初始化结构，例如：new{ Name = string.Empty, Age = 0 }。</param>
-        /// <returns></returns>
+        /// <returns>返回结果。</returns>
         public static T ToAnonymousTypeOrDefault<T>(this object obj, T t)
         {
             try
@@ -100,6 +100,6 @@ namespace System
                 return default(T);
             }
         }//end method
-
+ 
     }//end class
 }//end namespace
