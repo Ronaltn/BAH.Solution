@@ -61,9 +61,9 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         #region 主要元素
 
-        public static string PkId(this DynamicObject dataObject)
+        public static object PkId(this DynamicObject dataObject)
         {
-            return dataObject.Property<string>("Id");
+            return dataObject.Property<object>("Id");
         }//end method
 
         public static T PkId<T>(this DynamicObject dataObject)

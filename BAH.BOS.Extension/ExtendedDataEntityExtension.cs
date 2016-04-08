@@ -53,7 +53,7 @@ namespace Kingdee.BOS.Core
 
         #region 主要元素
 
-        public static string PkId(this ExtendedDataEntity dataObject)
+        public static object PkId(this ExtendedDataEntity dataObject)
         {
             return dataObject.DataEntity.PkId();
         }//end method
