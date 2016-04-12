@@ -27,5 +27,15 @@ namespace System.Linq
             return AnyOrNull<TSource>(source) ? source.FirstOrDefault(predicate) : default(TSource);
         }//end method
 
+        public static TSource SingleOrNullDefault<TSource>(this IEnumerable<TSource> source)
+        {
+            return AnyOrNull<TSource>(source) ? source.SingleOrDefault() : default(TSource);
+        }//end method
+
+        public static TSource SingleOrNullDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            return AnyOrNull<TSource>(source) ? source.SingleOrDefault(predicate) : default(TSource);
+        }//end method
+
     }//end class
 }//end namespace

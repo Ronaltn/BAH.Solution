@@ -54,7 +54,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, Entity entity)
         {
-            return EntryProperty(dataObject, entity).FirstOrNullDefault();
+            return EntryProperty(dataObject, entity).SingleOrNullDefault();
         }//end method
 
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
