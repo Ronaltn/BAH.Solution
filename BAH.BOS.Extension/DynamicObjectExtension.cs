@@ -36,6 +36,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             return field.DynamicProperty.GetValue<T>(dataObject);
         }//end method
 
+        public static T FieldRefProperty<T>(this DynamicObject dataObject, BaseDataField field, string keyName)
+        {
+            return field.GetRefPropertyValue(dataObject, keyName).ToType<T>();
+        }//end method
+
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
@@ -113,7 +118,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BDNumber(this DynamicObject dataObject, BaseDataField field)
         {
-            return field.GetRefPropertyValue(dataObject, "FNumber").ToTypeOrDefault<string>();
+            return FieldRefProperty<string>(dataObject, field, "FNumber");
         }//end method
 
         public static string BDName(this DynamicObject dataObject, int localeId)
@@ -121,19 +126,14 @@ namespace Kingdee.BOS.Orm.DataEntity
             return dataObject.Property<LocaleValue>("Name").Value(localeId);
         }//end method
 
-        public static string BDName(this DynamicObject dataObject, BaseDataField field, int localeId)
-        {
-            return field.GetRefPropertyValue(dataObject, "FName").ToType<LocaleValue>().Value(localeId);
-        }//end method
-
         public static string BDName(this DynamicObject dataObject, Context ctx)
         {
             return BDName(dataObject, ctx.UserLocale.LCID);
         }//end method
 
-        public static string BDName(this DynamicObject dataObject, BaseDataField field, Context ctx)
+        public static string BDName(this DynamicObject dataObject, BaseDataField field)
         {
-            return field.GetRefPropertyValue(dataObject, "FName").ToType<LocaleValue>().Value(ctx);
+            return FieldRefProperty<string>(dataObject, field, "FName");
         }//end method
 
         public static string BillNo(this DynamicObject dataObject)
