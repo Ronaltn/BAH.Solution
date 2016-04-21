@@ -1,6 +1,7 @@
 ﻿using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;
 using Kingdee.BOS.Core.Metadata.FieldElement;
+using Kingdee.BOS.Orm.Metadata.DataEntity;
 using Kingdee.BOS.ServiceHelper;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,11 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
         {
             var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
+            return LoadFromCache(dataObject, ctx, type);
+        }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type)
+        {
             var pkArray = new object[] { dataObject.PkId() };
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
         }//end method
