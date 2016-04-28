@@ -1,4 +1,5 @@
-﻿using Kingdee.BOS.Core.Metadata;
+﻿using Kingdee.BOS.Core;
+using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;
 using Kingdee.BOS.Core.Metadata.FieldElement;
 using Kingdee.BOS.Orm.Metadata.DataEntity;
@@ -86,7 +87,17 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T PkId<T>(this DynamicObject dataObject)
         {
-            return dataObject.PkId().ToChangeType<T>();
+            return dataObject.Property<T>("Id");
+        }//end method
+
+        public static object MasterId(this DynamicObject dataObject)
+        {
+            return dataObject.Property<object>(FormConst.MASTER_ID);
+        }//end method
+
+        public static T MasterId<T>(this DynamicObject dataObject)
+        {
+            return dataObject.Property<T>(FormConst.MASTER_ID);
         }//end method
 
         public static int Seq(this DynamicObject dataObject)
