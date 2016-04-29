@@ -21,10 +21,15 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return default(T);
             }
+            else if (typeof(T).IsValueType && !typeof(T).Equals(typeof(string)))
+            {
+                return dataObject[propertyName].ToChangeType<T>();
+            }
             else
             {
-                return typeof(T).IsValueType ? dataObject[propertyName].ToChangeType<T>() : dataObject[propertyName].ToType<T>();
+                return dataObject[propertyName].ToType<T>();
             }
+
         }//end method
 
         public static T FieldProperty<T>(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
