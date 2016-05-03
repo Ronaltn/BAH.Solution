@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerableExtension.cs" />
+    <Compile Include="GuidExtension.cs" />
     <Compile Include="ObjectExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
