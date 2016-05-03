@@ -69,15 +69,15 @@ namespace Kingdee.BOS.Orm.DataEntity
             return EntryProperty(dataObject, entity).SingleOrNullDefault();
         }//end method
 
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
-        {
-            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            return LoadFromCache(dataObject, ctx, type);
-        }//end method
-
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type)
         {
-            var pkArray = new object[] { dataObject.PkId() };
+            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
+        }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
+        {
+            object pkId = selector(dataObject);
+            var pkArray = new object[] { pkId };
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
         }//end method
 

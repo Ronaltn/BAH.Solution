@@ -9,15 +9,14 @@ namespace Kingdee.BOS.Orm.DataEntity
 {
     public static class DynamicObjectCollectionExtension
     {
-        public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, string formId)
-        {
-            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            return LoadFromCache(dataObject, ctx, type);
-        }//end method
-
         public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type)
         {
-            var pkArray = dataObject.Select(data => data.PkId()).ToArray();
+            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
+        }//end method
+
+        public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
+        {
+            var pkArray = dataObject.Select(selector).ToArray();
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type);
         }//end method
 
