@@ -29,7 +29,7 @@ namespace System
         /// <returns>返回结果。</returns>
         public static T ToChangeType<T>(this object obj)
         {
-            return (T)Convert.ChangeType(obj, typeof(T), default(IFormatProvider));
+            return (T)Convert.ChangeType(obj, typeof(T));
         }//end method
 
         /// <summary>
