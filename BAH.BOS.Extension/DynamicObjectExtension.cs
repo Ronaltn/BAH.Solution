@@ -163,7 +163,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             return dataObject.Property<string>("BillNo");
         }//end method
 
-        public static string BillNo(this DynamicObject dataObject, Field field)
+        public static string BillNo(this DynamicObject dataObject, BillNoField field)
         {
             return field.DynamicProperty.GetValue<string>(dataObject);
         }//end method
