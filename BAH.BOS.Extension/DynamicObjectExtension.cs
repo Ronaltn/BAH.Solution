@@ -21,7 +21,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return default(T);
             }
-            else if (typeof(T).IsValueType && !typeof(T).Equals(typeof(string)))
+            else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return dataObject[propertyName].ToChangeType<T>();
             }
