@@ -19,7 +19,7 @@ namespace System
         public static string To16String(this Guid guid)
         {
             long i = 1;
-            guid.ToByteArray().ToList().ForEach(b => i *= (b.ToType<int>() + 1));
+            guid.ToByteArray().ToList().ForEach((b) => i *= ((int)b + 1));
             return string.Format("{0:x}", i - DateTime.Now.Ticks);
         }//end method
 
