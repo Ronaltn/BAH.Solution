@@ -2,6 +2,7 @@
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;
 using Kingdee.BOS.Core.Metadata.FieldElement;
+using Kingdee.BOS.Orm;
 using Kingdee.BOS.Orm.Metadata.DataEntity;
 using Kingdee.BOS.ServiceHelper;
 using System;
@@ -67,24 +68,6 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, Entity entity)
         {
             return EntryProperty(dataObject, entity).SingleOrNullDefault();
-        }//end method
-
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
-        {
-            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
-        }//end method
-
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type)
-        {
-            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
-        }//end method
-
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
-        {
-            object pkId = selector(dataObject);
-            var pkArray = new object[] { pkId };
-            return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
         }//end method
 
         #endregion
@@ -172,6 +155,33 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static string BillNo(this DynamicObject dataObject, BillNoField field)
         {
             return field.DynamicProperty.GetValue<string>(dataObject);
+        }//end method
+
+        #endregion
+
+        #region 功能方法
+
+        public static DynamicObject Duplicate(this DynamicObject dataObject, bool clearPrimaryKeyValue = true)
+        {
+            return OrmUtils.Clone(dataEntity: dataObject, clearPrimaryKeyValue: clearPrimaryKeyValue).ToType<DynamicObject>();
+        }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
+        {
+            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
+            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
+        }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type)
+        {
+            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
+        }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
+        {
+            object pkId = selector != null ? selector(dataObject) : default(object);
+            var pkArray = new object[] { pkId };
+            return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
         }//end method
 
         #endregion

@@ -22,7 +22,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
         {
-            var pkArray = dataObject.Select(selector).ToArray();
+            var pkArray = selector != null ? dataObject.Select(selector).ToArray() : default(object[]);
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type);
         }//end method
 
