@@ -18,7 +18,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T Property<T>(this DynamicObject dataObject, string propertyName)
         {
-            if (dataObject == null || dataObject[propertyName] == null)
+            if (dataObject == null || dataObject[propertyName] == null || DBNull.Value.Equals(dataObject[propertyName]))
             {
                 return default(T);
             }
