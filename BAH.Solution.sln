@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Extension", "BAH.BOS.Extension\BAH.BOS.Extension.csproj", "{FFCCD361-FE4B-4D7E-AC0C-F34E7DD88265}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.Extension", "BAH.Extension\BAH.Extension.csproj", "{FC1D4EA0-41E9-4AB0-8297-1E33CA0D3631}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Core.Extension", "BAH.BOS.Core.Extension\BAH.BOS.Core.Extension.csproj", "{772A1320-7545-44A1-AB77-E8FF01760FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +21,10 @@ Global
 		{FC1D4EA0-41E9-4AB0-8297-1E33CA0D3631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC1D4EA0-41E9-4AB0-8297-1E33CA0D3631}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC1D4EA0-41E9-4AB0-8297-1E33CA0D3631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

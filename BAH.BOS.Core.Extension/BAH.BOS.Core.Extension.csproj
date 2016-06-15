@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FFCCD361-FE4B-4D7E-AC0C-F34E7DD88265}</ProjectGuid>
+    <ProjectGuid>{772A1320-7545-44A1-AB77-E8FF01760FAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BAH.BOS.Extension</RootNamespace>
-    <AssemblyName>BAH.BOS.Extension</AssemblyName>
+    <RootNamespace>BAH.BOS.Core.Extension</RootNamespace>
+    <AssemblyName>BAH.BOS.Core.Extension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,21 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Kingdee.BOS, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Kingdee.BOS.Core, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Kingdee.BOS.Core">
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Kingdee.BOS.DataEntity, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.DataEntity.dll</HintPath>
-    </Reference>
-    <Reference Include="Kingdee.BOS.ServiceHelper, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,18 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicObjectCollectionExtension.cs" />
-    <Compile Include="DynamicObjectExtension.cs" />
-    <Compile Include="ExtendedDataEntityExtension.cs" />
-    <Compile Include="IDataEntityBaseExtension.cs" />
-    <Compile Include="LocaleValueExtension.cs" />
+    <Compile Include="IOperationResultExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BAH.Extension\BAH.Extension.csproj">
-      <Project>{fc1d4ea0-41e9-4ab0-8297-1e33ca0d3631}</Project>
-      <Name>BAH.Extension</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
