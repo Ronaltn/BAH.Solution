@@ -29,7 +29,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
             return new ServiceResult
             {
                 Code = (int)ResultCode.Success,
-                Message = string.Format("{0}，服务端已收到你的心跳信号！", this.KDContext.Session.AppContext.SessionId)
+                Message = string.Format("SessionId:{0}，服务端已收到你的心跳信号！", this.KDContext.Session.AppContext.SessionId)
             };
         }//end method
 
