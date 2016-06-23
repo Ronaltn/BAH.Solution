@@ -57,6 +57,7 @@
     <Compile Include="ResultCode.cs" />
     <Compile Include="Session\SessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\UserService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
