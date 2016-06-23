@@ -7,7 +7,8 @@ namespace BAH.BOS.WebAPI.ServiceStub.BusinessOperationResult
 {
     public enum ResultCode
     {
-        Success,
-        Fail
+        None = 0,
+        Success = 1,
+        Fail = 2
     }//end enum
 }//end namespace
