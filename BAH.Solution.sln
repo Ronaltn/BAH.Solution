@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.Extension", "BAH.Extens
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Core.Extension", "BAH.BOS.Core.Extension\BAH.BOS.Core.Extension.csproj", "{772A1320-7545-44A1-AB77-E8FF01760FAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.WebAPI.ServiceStub", "BAH.BOS.WebAPI.ServiceStub\BAH.BOS.WebAPI.ServiceStub.csproj", "{252B376D-C9FB-4059-9D8F-E097EAAC3490}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{772A1320-7545-44A1-AB77-E8FF01760FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
