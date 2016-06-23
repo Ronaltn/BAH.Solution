@@ -1,5 +1,4 @@
-﻿using BAH.BOS.WebAPI.ServiceStub.BusinessOperationResult;
-using Kingdee.BOS;
+﻿using Kingdee.BOS;
 using Kingdee.BOS.ServiceFacade.KDServiceFx;
 using Kingdee.BOS.WebApi.ServicesStub;
 using System;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.BOS.WebAPI.ServiceStub
+namespace BAH.BOS.WebAPI.ServiceStub.Session
 {
     /// <summary>
     /// 会话服务。

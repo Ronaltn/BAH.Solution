@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.BOS.WebAPI.ServiceStub.BusinessOperationResult
+namespace BAH.BOS.WebAPI.ServiceStub
 {
     /// <summary>
     /// 服务结果。
@@ -12,9 +12,15 @@ namespace BAH.BOS.WebAPI.ServiceStub.BusinessOperationResult
     [JsonObject]
     public class ServiceResult
     {
+        /// <summary>
+        /// 结果代码。
+        /// </summary>
         [JsonProperty]
         public int Code { get; set; }//end property
 
+        /// <summary>
+        /// 结果消息。
+        /// </summary>
         [JsonProperty]
         public string Message { get; set; }//end property
     }//end class
