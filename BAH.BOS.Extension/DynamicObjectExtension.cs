@@ -41,12 +41,26 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T FieldProperty<T>(this DynamicObject dataObject, Field field)
         {
-            return field.DynamicProperty.GetValue<T>(dataObject);
+            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            {
+                return field.DynamicProperty.GetValue(dataObject).ToChangeType<T>();
+            }
+            else
+            {
+                return field.DynamicProperty.GetValue(dataObject).ToType<T>();
+            } 
         }//end method
 
         public static T FieldRefProperty<T>(this DynamicObject dataObject, BaseDataField field, string keyName)
         {
-            return field.GetRefPropertyValue(dataObject, keyName).ToType<T>();
+            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            {
+                return field.GetRefPropertyValue(dataObject, keyName).ToChangeType<T>();
+            }
+            else
+            {
+                return field.GetRefPropertyValue(dataObject, keyName).ToType<T>();
+            }
         }//end method
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
