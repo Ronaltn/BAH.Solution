@@ -20,6 +20,20 @@ namespace BAH.BOS.WebAPI.ServiceStub.Session
         }//end constructor
 
         /// <summary>
+        /// 检测登录会话是否有效。
+        /// </summary>
+        /// <returns>返回服务端结果。</returns>
+        public virtual ServiceResult<bool> Alive()
+        {
+            return new ServiceResult<bool>
+            {
+                Code = (int)ResultCode.Success,
+                Message = (this.KDContext.Session.AppContext != null).ToString(),
+                Data = this.KDContext.Session.AppContext != null
+            };
+        }//end method
+
+        /// <summary>
         /// 接收心跳信号，返回服务端结果。
         /// </summary>
         /// <returns>返回服务端结果。</returns>
