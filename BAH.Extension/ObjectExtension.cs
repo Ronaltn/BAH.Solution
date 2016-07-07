@@ -71,15 +71,27 @@ namespace System
         /// <returns>返回结果。</returns>
         public static T ToChangeTypeOrDefault<T>(this object obj)
         {
+            return ToChangeTypeOrDefault<T>(obj, default(T));
+        }//end method
+
+        /// <summary>
+        /// 显式转换，如果有异常则直接返回指定的默认值。
+        /// </summary>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <param name="def">指定的默认值。</param>
+        /// <returns>返回结果。</returns>
+        public static T ToChangeTypeOrDefault<T>(this object obj, T def)
+        {
             try
             {
                 return ToChangeType<T>(obj);
             }
             catch
             {
-                return default(T);
+                return def;
             }
-        }//end method
+        }
 
         /// <summary>
         /// 隐式转换，如果有异常则直接返回结果类型的默认值，匿名对象转换专用。
