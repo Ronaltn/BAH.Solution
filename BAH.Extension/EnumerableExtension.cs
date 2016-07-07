@@ -37,5 +37,17 @@ namespace System.Linq
             return AnyOrNull<TSource>(source) ? source.SingleOrDefault(predicate) : default(TSource);
         }//end method
 
+        public static IList<IEnumerable<TSource>> Paging<TSource>(this IEnumerable<TSource> source, int limit)
+        {
+            IList<IEnumerable<TSource>> result = new List<IEnumerable<TSource>>();
+            int num = 1, left = source.Count();
+            while (left > 0)
+            {
+                result.Add(source.Skip((num - 1) * limit).Take(left >= limit ? limit : left));
+                left = left - limit;
+            }//end while
+            return result;
+        }//end method
+
     }//end class
 }//end namespace
