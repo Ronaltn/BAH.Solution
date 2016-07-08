@@ -44,6 +44,8 @@ namespace System.Linq
             while (left > 0)
             {
                 result.Add(source.Skip((num - 1) * limit).Take(left >= limit ? limit : left));
+
+                num++;
                 left = left - limit;
             }//end while
             return result;
