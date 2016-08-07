@@ -34,6 +34,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
     </Reference>
+    <Reference Include="Kingdee.BOS.Contracts, Version=6.1.39.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Kingdee.BOS.MC.ServiceFacade.KDServiceClient, Version=6.1.39.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.MC.ServiceFacade.KDServiceClient.dll</HintPath>
+    </Reference>
     <Reference Include="Kingdee.BOS.ServiceFacade.KDServiceFx">
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.ServiceFacade.KDServiceFx.dll</HintPath>
     </Reference>
@@ -54,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demo\DemoService.cs" />
+    <Compile Include="MC\DataCenter.cs" />
+    <Compile Include="MC\MCService.cs" />
     <Compile Include="ServiceResult.cs" />
     <Compile Include="ResultCode.cs" />
     <Compile Include="Session\SessionService.cs" />
