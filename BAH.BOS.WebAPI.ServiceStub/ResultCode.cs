@@ -10,7 +10,15 @@ namespace BAH.BOS.WebAPI.ServiceStub
     /// </summary>
     public enum ResultCode
     {
+        /// <summary>
+        /// 失败。
+        /// </summary>
         Fail = 0,
+
+        /// <summary>
+        /// 成功。
+        /// </summary>
         Success = 1,
+
     }//end enum
 }//end namespace

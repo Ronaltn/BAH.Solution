@@ -1,6 +1,7 @@
 ﻿using Kingdee.BOS;
 using Kingdee.BOS.Contracts;
 using Kingdee.BOS.MC.ServiceFacade.KDServiceClient;
+using Kingdee.BOS.ServiceFacade.KDServiceFx;
 using Kingdee.BOS.WebApi.ServicesStub;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,12 @@ namespace BAH.BOS.WebAPI.ServiceStub.MC
     /// </summary>
     public class MCService : AbstractWebApiBusinessService
     {
+        public MCService(KDServiceContext context)
+            : base(context)
+        {
+
+        }//end constructor
+
         /// <summary>
         /// 获取业务数据中心。
         /// </summary>

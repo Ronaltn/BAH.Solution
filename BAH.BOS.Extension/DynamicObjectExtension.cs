@@ -1,4 +1,6 @@
-﻿using Kingdee.BOS.Core;
+﻿using Kingdee.BOS.App.Core;
+using Kingdee.BOS.Core;
+using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;
 using Kingdee.BOS.Core.Metadata.FieldElement;
@@ -175,6 +177,13 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         #region 功能方法
 
+        public static DynamicObject AutoSetPrimaryKey(this DynamicObject dataObject, Context ctx)
+        {
+            SequenceReader reader = new SequenceReader(ctx);
+            reader.AutoSetPrimaryKey(new DynamicObject[] { dataObject }, dataObject.DynamicObjectType);
+            return dataObject;
+        }//end method
+
         public static DynamicObject Duplicate(this DynamicObject dataObject, bool clearPrimaryKeyValue = true)
         {
             return OrmUtils.Clone(dataEntity: dataObject, clearPrimaryKeyValue: clearPrimaryKeyValue).ToType<DynamicObject>();
@@ -186,16 +195,45 @@ namespace Kingdee.BOS.Orm.DataEntity
             return LoadFromCache(dataObject, ctx, type, data => data.PkId());
         }//end method
 
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type)
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
-            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
-        }//end method
-
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector)
-        {
-            object pkId = selector != null ? selector(dataObject) : default(object);
+            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
             var pkArray = new object[] { pkId };
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
+        }//end method
+
+        public static IOperationResult Draft(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
+        {
+            IOperationResult result = BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject, option);
+            return result;
+        }//end method
+
+        public static IOperationResult Save(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
+        {
+            IOperationResult result = BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject, option);
+            return result;
+        }//end method
+
+        public static IOperationResult Submit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
+            IOperationResult result = BusinessDataServiceHelper.Submit(ctx, businessInfo, new object[] { pkId }, "Submit", option);
+            return result;
+        }//end method
+
+        public static IOperationResult Audit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
+
+            List<KeyValuePair<object, object>> pkIds = new List<KeyValuePair<object, object>>();
+            pkIds.Add(new KeyValuePair<object, object>(pkId, ""));
+
+            List<object> paraAudit = new List<object>();
+            paraAudit.Add("1");//表示审核动作。
+            paraAudit.Add("");//表示审核意见。
+
+            IOperationResult result = BusinessDataServiceHelper.SetBillStatus(ctx, businessInfo, pkIds, paraAudit, OperationNumberConst.OperationNumber_Audit, option);
+            return result;
         }//end method
 
         #endregion
