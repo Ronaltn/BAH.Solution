@@ -34,10 +34,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
     </Reference>
-    <Reference Include="Kingdee.BOS.Contracts, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
-    </Reference>
     <Reference Include="Kingdee.BOS.Core">
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.Core.dll</HintPath>
     </Reference>

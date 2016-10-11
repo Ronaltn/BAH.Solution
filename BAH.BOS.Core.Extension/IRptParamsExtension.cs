@@ -1,5 +1,4 @@
 ﻿using Kingdee.BOS;
-using Kingdee.BOS.Contracts;
 using Kingdee.BOS.Core.CommonFilter;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Report;
@@ -16,9 +15,6 @@ namespace Kingdee.BOS.Core.Report
     {
         public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, FormMetadata reportFilterMetadata, Action<ICommonFilterModelService> schemeSelector)
         {
-            ISysReportService sysReporSservice = ServiceFactory.GetSysReportService(ctx);
-            IPermissionService permissionService = ServiceFactory.GetPermissionService(ctx);
-
             var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);//加载字段比较条件元数据。
             var reportFilterServiceProvider = reportFilterMetadata.BusinessInfo.GetForm().GetFormServiceProvider();
 
@@ -38,7 +34,7 @@ namespace Kingdee.BOS.Core.Report
             p.EndRow = int.MaxValue;//StartRow和EndRow是报表数据分页的起始行数和截至行数，一般取所有数据，所以EndRow取int最大值。
             p.FilterParameter = model.GetFilterParameter();
             p.FilterFieldInfo = model.FilterFieldInfo;
-            p.BaseDataTempTable.AddRange(permissionService.GetBaseDataTempTable(ctx, reportMetadata.BusinessInfo.GetForm().Id));
+            p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportMetadata.BusinessInfo.GetForm().Id));
 
             return p;
         }//end static method
