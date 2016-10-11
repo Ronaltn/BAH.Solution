@@ -59,9 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicObjectCollectionExtension.cs" />
+    <Compile Include="DynamicObjectEnumerableExtension.cs" />
     <Compile Include="DynamicObjectExtension.cs" />
-    <Compile Include="ExtendedDataEntityExtension.cs" />
     <Compile Include="IDataEntityBaseExtension.cs" />
     <Compile Include="LocaleValueExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

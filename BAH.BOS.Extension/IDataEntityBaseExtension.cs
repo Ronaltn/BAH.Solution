@@ -8,6 +8,11 @@ namespace Kingdee.BOS.Orm.DataEntity
 {
     public static class IDataEntityBaseExtension
     {
+        public static object Clone(this IDataEntityBase dataEntity, bool clearPrimaryKeyValue = true)
+        {
+            return OrmUtils.Clone(dataEntity, clearPrimaryKeyValue);
+        }//end method
+
         public static object PrimaryKeyValue(this IDataEntityBase dataEntity)
         {
             return OrmUtils.GetPrimaryKeyValue(dataEntity, false);

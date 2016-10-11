@@ -34,8 +34,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
     </Reference>
+    <Reference Include="Kingdee.BOS.Contracts, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
+    </Reference>
     <Reference Include="Kingdee.BOS.Core">
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Kingdee.BOS.DataEntity, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="Kingdee.BOS.Model, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Kingdee.BOS.ServiceHelper, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOperationResultExtension.cs" />
+    <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

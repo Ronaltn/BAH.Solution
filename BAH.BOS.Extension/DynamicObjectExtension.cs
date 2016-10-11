@@ -179,62 +179,43 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject AutoSetPrimaryKey(this DynamicObject dataObject, Context ctx)
         {
-            SequenceReader reader = new SequenceReader(ctx);
-            reader.AutoSetPrimaryKey(new DynamicObject[] { dataObject }, dataObject.DynamicObjectType);
-            return dataObject;
+            return new DynamicObject[] { dataObject }.AutoSetPrimaryKey(ctx).FirstOrDefault();
         }//end method
 
-        public static DynamicObject Duplicate(this DynamicObject dataObject, bool clearPrimaryKeyValue = true)
+        public static DynamicObject AutoSetBillNo(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo)
         {
-            return OrmUtils.Clone(dataEntity: dataObject, clearPrimaryKeyValue: clearPrimaryKeyValue).ToType<DynamicObject>();
-        }//end method
-
-        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId)
-        {
-            var type = FormMetaDataCache.GetCachedFormMetaData(ctx, formId).BusinessInfo.GetDynamicObjectType();
-            return LoadFromCache(dataObject, ctx, type, data => data.PkId());
+            return new DynamicObject[] { dataObject }.AutoSetBillNo(ctx, businessInfo).FirstOrDefault();
         }//end method
 
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
-            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
-            var pkArray = new object[] { pkId };
-            return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type).FirstOrNullDefault();
+            return new DynamicObject[] { dataObject }.LoadFromCache(ctx, type, selector).FirstOrDefault();
         }//end method
 
         public static IOperationResult Draft(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
-            IOperationResult result = BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject, option);
-            return result;
+            return BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject, option);
         }//end method
 
         public static IOperationResult Save(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
-            IOperationResult result = BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject, option);
-            return result;
+            return BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject, option);
         }//end method
 
         public static IOperationResult Submit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
-            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
-            IOperationResult result = BusinessDataServiceHelper.Submit(ctx, businessInfo, new object[] { pkId }, "Submit", option);
-            return result;
+            return new DynamicObject[] { dataObject }.Submit(ctx, businessInfo, option, selector);
         }//end method
 
         public static IOperationResult Audit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
-            object pkId = selector != null ? selector(dataObject) : dataObject.PkId();
-
-            List<KeyValuePair<object, object>> pkIds = new List<KeyValuePair<object, object>>();
-            pkIds.Add(new KeyValuePair<object, object>(pkId, ""));
-
-            List<object> paraAudit = new List<object>();
-            paraAudit.Add("1");//表示审核动作。
-            paraAudit.Add("");//表示审核意见。
-
-            IOperationResult result = BusinessDataServiceHelper.SetBillStatus(ctx, businessInfo, pkIds, paraAudit, OperationNumberConst.OperationNumber_Audit, option);
-            return result;
+            return new DynamicObject[] { dataObject }.Audit(ctx, businessInfo, option, selector);
         }//end method
+
+        public static IOperationResult DoNothing(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, string operationNumber, OperateOption option = null)
+        {
+            return new DynamicObject[] { dataObject }.DoNothing(ctx, businessInfo, operationNumber, option);
+        }//end static method
 
         #endregion
 
