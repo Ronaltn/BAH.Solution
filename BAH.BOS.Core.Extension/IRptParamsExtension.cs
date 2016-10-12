@@ -18,7 +18,6 @@ namespace Kingdee.BOS.Core.Report
             var reportFilterFormId = reportMetadata.BusinessInfo.GetForm().FilterObject;
             var reportFilterMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, reportFilterFormId);
             var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);//加载字段比较条件元数据。
-
             var reportFilterServiceProvider = reportFilterMetadata.BusinessInfo.GetForm().GetFormServiceProvider();
 
             var model = new SysReportFilterModel();
@@ -39,6 +38,7 @@ namespace Kingdee.BOS.Core.Report
             p.FilterFieldInfo = model.FilterFieldInfo;
             p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportMetadata.BusinessInfo.GetForm().Id));
 
+            if (rpt == null) rpt = p;
             return p;
         }//end static method
 
