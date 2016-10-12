@@ -13,9 +13,12 @@ namespace Kingdee.BOS.Core.Report
 {
     public static class IRptParamsExtension
     {
-        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, FormMetadata reportFilterMetadata, Action<ICommonFilterModelService> schemeSelector)
+        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, Action<ICommonFilterModelService> schemeSelector)
         {
+            var reportFilterFormId = reportMetadata.BusinessInfo.GetForm().FilterObject;
+            var reportFilterMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, reportFilterFormId);
             var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);//加载字段比较条件元数据。
+
             var reportFilterServiceProvider = reportFilterMetadata.BusinessInfo.GetForm().GetFormServiceProvider();
 
             var model = new SysReportFilterModel();
@@ -39,14 +42,14 @@ namespace Kingdee.BOS.Core.Report
             return p;
         }//end static method
 
-        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, FormMetadata reportFilterMetadata, string schemeId)
+        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, string schemeId)
         {
-            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, reportFilterMetadata, service => service.Load(schemeId));
+            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => service.Load(schemeId));
         }//end static method
 
-        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, FormMetadata reportFilterMetadata)
+        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata)
         {
-            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, reportFilterMetadata, service => service.LoadDefaultScheme());
+            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => service.LoadDefaultScheme());
         }//end static method
 
     }//end static class
