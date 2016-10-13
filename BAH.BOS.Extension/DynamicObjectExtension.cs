@@ -33,13 +33,13 @@ namespace Kingdee.BOS.Orm.DataEntity
                 return dataObject[propertyName].ToType<T>();
             }
 
-        }//end method
+        }
 
         public static T FieldProperty<T>(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string propertyName = businessInfo.GetField(keyName).PropertyName;
             return Property<T>(dataObject, propertyName);
-        }//end method
+        }
 
         public static T FieldProperty<T>(this DynamicObject dataObject, Field field)
         {
@@ -51,7 +51,19 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return field.DynamicProperty.GetValue(dataObject).ToType<T>();
             } 
-        }//end method
+        }
+
+        public static T FieldRefIdProperty<T>(this DynamicObject dataObject, BaseDataField field)
+        {
+            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            {
+                return field.RefIDDynamicProperty.GetValue(dataObject).ToChangeType<T>();
+            }
+            else
+            {
+                return field.RefIDDynamicProperty.GetValue(dataObject).ToType<T>();
+            } 
+        }
 
         public static T FieldRefProperty<T>(this DynamicObject dataObject, BaseDataField field, string keyName)
         {
@@ -63,28 +75,28 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return field.GetRefPropertyValue(dataObject, keyName).ToType<T>();
             }
-        }//end method
+        }
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             string entryName = businessInfo.GetEntity(keyName).EntryName;
             return Property<DynamicObjectCollection>(dataObject, entryName);
-        }//end method
+        }
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, Entity entity)
         {
             return entity.DynamicProperty.GetValue<DynamicObjectCollection>(dataObject);
-        }//end method
+        }
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
             return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
-        }//end method
+        }
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, Entity entity)
         {
             return EntryProperty(dataObject, entity).SingleOrNullDefault();
-        }//end method
+        }
 
         #endregion
 
