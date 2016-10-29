@@ -26,11 +26,13 @@ namespace Kingdee.BOS.Core.Report
             model.FilterObject.FilterMetaData = filterMetadata;
             model.InitFieldList(reportMetadata, reportFilterMetadata);
             model.GetSchemeList();
-
-            schemeSelector = schemeSelector != null ? schemeSelector : new Action<ICommonFilterModelService>(s => { model.LoadDefaultScheme(); });
+            schemeSelector = schemeSelector != null ? schemeSelector : s => { model.LoadDefaultScheme(); };
             schemeSelector(model);
 
+            var openParameter = new Dictionary<string, object>();
+
             IRptParams p = new RptParams();
+            p.CustomParams.Add(KeyConst.OPENPARAMETER_KEY, openParameter);
             p.FormId = reportFilterMetadata.BusinessInfo.GetForm().Id;
             p.StartRow = 1;
             p.EndRow = int.MaxValue;//StartRow和EndRow是报表数据分页的起始行数和截至行数，一般取所有数据，所以EndRow取int最大值。
