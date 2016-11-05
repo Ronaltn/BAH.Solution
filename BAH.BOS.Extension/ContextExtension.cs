@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.BOS.Extension
+namespace Kingdee.BOS
 {
     public static class ContextExtension
     {
         public static Context CreateAdministrator(this Context ctx, string dataCenterId)
         {
+            var conf = KDConfiguration.Current;
             Context contextByDataCenterId = DataCenterService.GetDataCenterContextByID(dataCenterId);
             contextByDataCenterId.UserId = FormConst.AdministratorID;
             contextByDataCenterId.UserName = "Administrator";
-            SetTimeZone(ctx);
 
             if (ctx == null) ctx = contextByDataCenterId;
             return contextByDataCenterId;
@@ -27,7 +27,7 @@ namespace BAH.BOS.Extension
             ILoginService loginService = null;
             try
             {
-                ServiceFactory.GetLoginService(ctx.ServerUrl);
+                loginService = ServiceFactory.GetLoginService(ctx.ServerUrl);
                 loginService.SetContextTimeZone(ctx);
             }
             catch 
