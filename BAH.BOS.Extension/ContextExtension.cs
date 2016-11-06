@@ -13,17 +13,19 @@ namespace Kingdee.BOS
 {
     public static class ContextExtension
     {
-        public static Context Create(this Context ctx, string dataCenterId, long userId)
+        public static Context CreateInstance(this Context ctx, string dataCenterId, long userId)
         {
             Context contextByDataCenterId = DataCenterService.GetDataCenterContextByID(dataCenterId);
 
             //处理用户登录名
             {
                 FormMetadata metadata = FormMetaDataCache.GetCachedFormMetaData(contextByDataCenterId, FormIdConst.SEC_User);
-                BusinessInfo businessInfo = metadata.BusinessInfo.GetSubBusinessInfo(new List<string> { "FNumber", "FName" });
-                DynamicObject dataObject = BusinessDataServiceHelper.LoadSingle(ctx, userId, businessInfo.GetDynamicObjectType());
-                contextByDataCenterId.LoginName = dataObject.FieldProperty<string>(businessInfo.GetField("FNumber"));
-                contextByDataCenterId.UserName = dataObject.FieldProperty<LocaleValue>(businessInfo.GetField("FName")).Value(contextByDataCenterId);
+                BusinessInfo businessInfo = metadata.BusinessInfo.GetSubBusinessInfo(new List<string> { "FNumber", "FUserAccount", "FName" });
+                DynamicObject dataObject = BusinessDataServiceHelper.LoadSingle(contextByDataCenterId, userId, businessInfo.GetDynamicObjectType());
+                contextByDataCenterId.UserId = dataObject.PkId<long>();
+                if (businessInfo.GetField("FNumber") != null) contextByDataCenterId.LoginName = dataObject.FieldProperty<string>(businessInfo.GetField("FNumber"));
+                if (businessInfo.GetField("FUserAccount") != null) contextByDataCenterId.LoginName = dataObject.FieldProperty<string>(businessInfo.GetField("FUserAccount"));
+                contextByDataCenterId.UserName = dataObject.FieldProperty<string>(businessInfo.GetField("FName"));
             }
 
             if (ctx == null) ctx = contextByDataCenterId;
