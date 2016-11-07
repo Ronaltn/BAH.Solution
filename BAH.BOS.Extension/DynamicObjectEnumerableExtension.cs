@@ -51,6 +51,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             return result;
         }//end method
 
+        public static DynamicObject[] Save(this IEnumerable<DynamicObject> dataObject, Context ctx)
+        {
+            return BusinessDataServiceHelper.Save(ctx, dataObject.ToArray());
+        }
+
         public static IOperationResult Save(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
             IOperationResult result = BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject.ToArray(), option);

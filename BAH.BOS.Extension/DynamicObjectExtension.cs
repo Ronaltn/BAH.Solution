@@ -209,6 +209,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             return BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject, option);
         }//end method
 
+        public static DynamicObject Save(this DynamicObject dataObject, Context ctx)
+        {
+            return BusinessDataServiceHelper.Save(ctx, dataObject);
+        }
+
         public static IOperationResult Save(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
             return BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject, option);
