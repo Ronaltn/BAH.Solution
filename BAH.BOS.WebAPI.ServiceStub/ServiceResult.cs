@@ -15,13 +15,13 @@ namespace BAH.BOS.WebAPI.ServiceStub
         /// <summary>
         /// 结果代码。
         /// </summary>
-        [JsonProperty("code")]
+        [JsonProperty]
         public int Code { get; set; }//end property
 
         /// <summary>
         /// 结果消息。
         /// </summary>
-        [JsonProperty("message")]
+        [JsonProperty]
         public string Message { get; set; }//end property
     }//end class
 
@@ -35,7 +35,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
         /// <summary>
         /// 主体对象，类型由泛型定义。
         /// </summary>
-        [JsonProperty("data")]
+        [JsonProperty]
         public T Data { get; set; }//end property
     }//end class
 
