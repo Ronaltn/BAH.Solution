@@ -62,6 +62,12 @@
     <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BAH.BOS.Extension\BAH.BOS.Extension.csproj">
+      <Project>{ffccd361-fe4b-4d7e-ac0c-f34e7dd88265}</Project>
+      <Name>BAH.BOS.Extension</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

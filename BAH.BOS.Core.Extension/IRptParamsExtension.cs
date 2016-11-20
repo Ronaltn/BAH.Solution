@@ -43,10 +43,10 @@ namespace Kingdee.BOS.Core.Report
             schemeSelector = schemeSelector != null ? schemeSelector : s => { model.LoadDefaultScheme(); return string.Empty; };
             var schemeId = schemeSelector(model);
 
-            //打开参数
+            //打开参数，暂时不指定任何项。
             var openParameter = new Dictionary<string, object>();
 
-            //如果指定了过滤方案，则根据过滤方案查找创建用户
+            //如果指定了过滤方案，则根据过滤方案查找创建用户。
             long userId = -1L;
             if (!string.IsNullOrWhiteSpace(schemeId))
             {
@@ -55,8 +55,8 @@ namespace Kingdee.BOS.Core.Report
                                                   .FieldProperty<long>(schemeBusinessInfo.GetField("FUserID"));
             }//end if
 
-            //加载用户参数
-            var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, parameterDataFormId, KeyConst.USERPARAMETER_KEY);
+            //加载用户参数数据包。
+            var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, reportMetadata.BusinessInfo.GetForm().Id, KeyConst.USERPARAMETER_KEY);
 
             IRptParams p = new RptParams();
             p.CustomParams.Add(KeyConst.OPENPARAMETER_KEY, openParameter);
