@@ -39,25 +39,21 @@ namespace Kingdee.BOS.Core.Report
             model.InitFieldList(reportMetadata, reportFilterMetadata);
             model.GetSchemeList();
             
-            //方案选择，返回选中的过滤方案主键。
+            //方案加载，返回选中的过滤方案主键。
             schemeSelector = schemeSelector != null ? schemeSelector : s => { model.LoadDefaultScheme(); return string.Empty; };
             var schemeId = schemeSelector(model);
 
             //打开参数
             var openParameter = new Dictionary<string, object>();
 
-            //确立用户
-            long userId = default(long);
-            if (string.IsNullOrWhiteSpace(schemeId))
-            {
-                userId = -1L;
-            }
-            else
+            //如果指定了过滤方案，则根据过滤方案查找创建用户
+            long userId = -1L;
+            if (!string.IsNullOrWhiteSpace(schemeId))
             {
                 var schemeBusinessInfo = schemeMetadata.BusinessInfo.GetSubBusinessInfo(new List<string> { "FUserID" });
                 userId = BusinessDataServiceHelper.LoadSingle(ctx, schemeId, schemeBusinessInfo.GetDynamicObjectType())
                                                   .FieldProperty<long>(schemeBusinessInfo.GetField("FUserID"));
-            }
+            }//end if
 
             //加载用户参数
             var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, parameterDataFormId, KeyConst.USERPARAMETER_KEY);
