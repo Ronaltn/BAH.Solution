@@ -3,6 +3,7 @@ using Kingdee.BOS.Core.CommonFilter;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Report;
 using Kingdee.BOS.Model.ReportFilter;
+using Kingdee.BOS.Orm.DataEntity;
 using Kingdee.BOS.ServiceHelper;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,23 @@ namespace Kingdee.BOS.Core.Report
 {
     public static class IRptParamsExtension
     {
-        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, Action<ICommonFilterModelService> schemeSelector)
+        public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, Func<ICommonFilterModelService, string> schemeSelector)
         {
+            //字段比较条件元数据。
+            var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);
+
+            //过滤条件元数据。
             var reportFilterFormId = reportMetadata.BusinessInfo.GetForm().FilterObject;
             var reportFilterMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, reportFilterFormId);
-            var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);//加载字段比较条件元数据。
             var reportFilterServiceProvider = reportFilterMetadata.BusinessInfo.GetForm().GetFormServiceProvider();
+
+            //过滤方案元数据。
+            var schemeFormId = "BOS_FilterScheme";
+            var schemeMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, schemeFormId);
+
+            //用户参数元数据。
+            var parameterDataFormId = reportMetadata.BusinessInfo.GetForm().ParameterObjectId;
+            var parameterDataMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, parameterDataFormId);
 
             var model = new SysReportFilterModel();
             model.SetContext(ctx, reportFilterMetadata.BusinessInfo, reportFilterServiceProvider);
@@ -26,10 +38,29 @@ namespace Kingdee.BOS.Core.Report
             model.FilterObject.FilterMetaData = filterMetadata;
             model.InitFieldList(reportMetadata, reportFilterMetadata);
             model.GetSchemeList();
-            schemeSelector = schemeSelector != null ? schemeSelector : s => { model.LoadDefaultScheme(); };
-            schemeSelector(model);
+            
+            //方案选择，返回选中的过滤方案主键。
+            schemeSelector = schemeSelector != null ? schemeSelector : s => { model.LoadDefaultScheme(); return string.Empty; };
+            var schemeId = schemeSelector(model);
 
+            //打开参数
             var openParameter = new Dictionary<string, object>();
+
+            //确立用户
+            long userId = default(long);
+            if (string.IsNullOrWhiteSpace(schemeId))
+            {
+                userId = -1L;
+            }
+            else
+            {
+                var schemeBusinessInfo = schemeMetadata.BusinessInfo.GetSubBusinessInfo(new List<string> { "FUserID" });
+                userId = BusinessDataServiceHelper.LoadSingle(ctx, schemeId, schemeBusinessInfo.GetDynamicObjectType())
+                                                  .FieldProperty<long>(schemeBusinessInfo.GetField("FUserID"));
+            }
+
+            //加载用户参数
+            var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, parameterDataFormId, KeyConst.USERPARAMETER_KEY);
 
             IRptParams p = new RptParams();
             p.CustomParams.Add(KeyConst.OPENPARAMETER_KEY, openParameter);
@@ -39,6 +70,7 @@ namespace Kingdee.BOS.Core.Report
             p.FilterParameter = model.GetFilterParameter();
             p.FilterFieldInfo = model.FilterFieldInfo;
             p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportMetadata.BusinessInfo.GetForm().Id));
+            p.ParameterData = parameterData;
 
             if (rpt == null) rpt = p;
             return p;
@@ -46,12 +78,12 @@ namespace Kingdee.BOS.Core.Report
 
         public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata, string schemeId)
         {
-            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => service.Load(schemeId));
+            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => { service.Load(schemeId); return schemeId; });
         }//end static method
 
         public static IRptParams CreateFromSysReportFilterScheme(this IRptParams rpt, Context ctx, FormMetadata reportMetadata)
         {
-            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => service.LoadDefaultScheme());
+            return CreateFromSysReportFilterScheme(rpt, ctx, reportMetadata, service => { service.LoadDefaultScheme(); return string.Empty; });
         }//end static method
 
     }//end static class
