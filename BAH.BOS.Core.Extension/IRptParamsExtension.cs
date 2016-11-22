@@ -19,6 +19,9 @@ namespace Kingdee.BOS.Core.Report
             //字段比较条件元数据。
             var filterMetadata = FormMetaDataCache.GetCachedFilterMetaData(ctx);
 
+            //账表元数据。
+            var reportFormId = reportMetadata.BusinessInfo.GetForm().Id;
+
             //过滤条件元数据。
             var reportFilterFormId = reportMetadata.BusinessInfo.GetForm().FilterObject;
             var reportFilterMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, reportFilterFormId);
@@ -34,7 +37,7 @@ namespace Kingdee.BOS.Core.Report
 
             var model = new SysReportFilterModel();
             model.SetContext(ctx, reportFilterMetadata.BusinessInfo, reportFilterServiceProvider);
-            model.FormId = reportFilterMetadata.BusinessInfo.GetForm().Id;
+            model.FormId = reportFilterFormId;
             model.FilterObject.FilterMetaData = filterMetadata;
             model.InitFieldList(reportMetadata, reportFilterMetadata);
             model.GetSchemeList();
@@ -56,16 +59,16 @@ namespace Kingdee.BOS.Core.Report
             }//end if
 
             //加载用户参数数据包。
-            var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, reportMetadata.BusinessInfo.GetForm().Id, KeyConst.USERPARAMETER_KEY);
+            var parameterData = UserParamterServiceHelper.Load(ctx, parameterDataMetadata.BusinessInfo, userId, reportFormId, KeyConst.USERPARAMETER_KEY);
 
             IRptParams p = new RptParams();
             p.CustomParams.Add(KeyConst.OPENPARAMETER_KEY, openParameter);
-            p.FormId = reportFilterMetadata.BusinessInfo.GetForm().Id;
+            p.FormId = reportFilterFormId;
             p.StartRow = 1;
             p.EndRow = int.MaxValue;//StartRow和EndRow是报表数据分页的起始行数和截至行数，一般取所有数据，所以EndRow取int最大值。
             p.FilterParameter = model.GetFilterParameter();
             p.FilterFieldInfo = model.FilterFieldInfo;
-            p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportMetadata.BusinessInfo.GetForm().Id));
+            p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportFormId));
             p.ParameterData = parameterData;
 
             if (rpt == null) rpt = p;

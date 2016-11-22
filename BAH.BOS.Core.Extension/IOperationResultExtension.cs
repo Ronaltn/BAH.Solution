@@ -33,11 +33,11 @@ namespace Kingdee.BOS.Core.DynamicForm
             result.ThrowWhenUnSuccess(op => op.GetErrorMessage());
         }//end method
 
-        public static void ThrowWhenUnSuccess(this IOperationResult result, Func<IOperationResult, string> error)
+        public static void ThrowWhenUnSuccess(this IOperationResult result, Func<IOperationResult, string> op)
         {
             if (result.IsSuccess) return;
 
-            string message = error(result);
+            string message = op(result);
             throw new KDBusinessException("OperationError", message);
         }//end method
 
