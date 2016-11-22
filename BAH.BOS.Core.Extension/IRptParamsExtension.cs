@@ -71,7 +71,6 @@ namespace Kingdee.BOS.Core.Report
             p.BaseDataTempTable.AddRange(PermissionServiceHelper.GetBaseDataTempTable(ctx, reportFormId));
             p.ParameterData = parameterData;
 
-            if (rpt == null) rpt = p;
             return p;
         }//end static method
 
