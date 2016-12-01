@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace System
@@ -112,6 +113,30 @@ namespace System
                 return default(T);
             }
         }//end method
- 
+
+        /// <summary>
+        /// 对象深拷贝。
+        /// </summary>
+        /// <typeparam name="T">对象泛型定义。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回深拷贝后的对象。</returns>
+        public static T DeepCopy<T>(this T obj)
+        {
+            //如果是字符串或值类型则直接返回
+            if (obj is string || obj.GetType().IsValueType) return obj;
+
+            object retval = Activator.CreateInstance(obj.GetType());
+            FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            foreach (FieldInfo field in fields)
+            {
+                try 
+                {
+                    field.SetValue(retval, DeepCopy(field.GetValue(obj)));
+                }
+                catch { }
+            }
+            return (T)retval;
+        }//end method
+
     }//end class
 }//end namespace
