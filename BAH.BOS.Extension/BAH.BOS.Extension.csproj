@@ -68,6 +68,7 @@
     <Compile Include="DynamicObjectEnumerableExtension.cs" />
     <Compile Include="DynamicObjectExtension.cs" />
     <Compile Include="LocaleValueExtension.cs" />
+    <Compile Include="OperateOptionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
