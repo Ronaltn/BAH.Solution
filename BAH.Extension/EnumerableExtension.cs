@@ -25,12 +25,15 @@ namespace System.Linq
 
         public static IEnumerable<TSource> Paging<TSource>(this IEnumerable<TSource> source, int size, int index)
         {
-            if (size < 0) throw new ArgumentOutOfRangeException();
+            if (size <= 0) throw new ArgumentOutOfRangeException();
             if (index < 0) throw new ArgumentOutOfRangeException();
 
             int has = index * size;
+            has = has >= source.Count() ? source.Count() : has;
+
             int left = source.Count() - has;
             left = left >= 0 ? left : 0;
+
             IEnumerable<TSource> result = source.Skip(has).Take(left >= size ? size : left);
             return result;
         }
