@@ -90,12 +90,12 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
         {
-            return EntryProperty(dataObject, businessInfo, keyName).FirstOrNullDefault();
+            return EntryProperty(dataObject, businessInfo, keyName).FirstOrDefault();
         }
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, Entity entity)
         {
-            return EntryProperty(dataObject, entity).SingleOrNullDefault();
+            return EntryProperty(dataObject, entity).FirstOrDefault();
         }
 
         #endregion
