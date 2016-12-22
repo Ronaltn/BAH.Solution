@@ -43,7 +43,11 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T FieldProperty<T>(this DynamicObject dataObject, Field field)
         {
-            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            if (dataObject == null)
+            {
+                return default(T);
+            }
+            else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return field.DynamicProperty.GetValue(dataObject).ToChangeType<T>();
             }
@@ -55,7 +59,11 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T FieldRefIdProperty<T>(this DynamicObject dataObject, BaseDataField field)
         {
-            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            if (dataObject == null)
+            {
+                return default(T);
+            }
+            else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return field.RefIDDynamicProperty.GetValue(dataObject).ToChangeType<T>();
             }
@@ -67,7 +75,11 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static T FieldRefProperty<T>(this DynamicObject dataObject, BaseDataField field, string keyName)
         {
-            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            if (dataObject == null)
+            {
+                return default(T);
+            }
+            else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return field.GetRefPropertyValue(dataObject, keyName).ToChangeType<T>();
             }
@@ -85,7 +97,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObjectCollection EntryProperty(this DynamicObject dataObject, Entity entity)
         {
-            return entity.DynamicProperty.GetValue<DynamicObjectCollection>(dataObject);
+            return dataObject == null ? default(DynamicObjectCollection) : entity.DynamicProperty.GetValue<DynamicObjectCollection>(dataObject);
         }
 
         public static DynamicObject SubHeadProperty(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
