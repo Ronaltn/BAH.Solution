@@ -138,5 +138,17 @@ namespace System
             return (T)retval;
         }//end method
 
+        /// <summary>
+        /// 对象自适应。
+        /// </summary>
+        /// <typeparam name="T">对象泛型定义。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <param name="precidate">自适应的方法委托。</param>
+        /// <returns>返回结果。</returns>
+        public static T Adaptive<T>(this T obj, Func<T, T> precidate)
+        {
+            return precidate == null ? obj : precidate(obj);
+        }//end method
+
     }//end class
 }//end namespace

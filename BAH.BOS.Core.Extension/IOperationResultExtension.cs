@@ -34,6 +34,16 @@ namespace Kingdee.BOS.Core.DynamicForm
             {
                 msg.AppendLine("因交互性提示而操作中断！");
             }
+            /*
+            foreach (var error in result.ValidationErrors)
+            {
+                msg.AppendLine(error.Message);
+            }
+            foreach (var error in result.GetFatalErrorResults())
+            {
+                msg.AppendLine(error.Message);
+            }
+            */
             foreach (var operate in result.OperateResult)
             {
                 msg.AppendLine(operate.Message);
