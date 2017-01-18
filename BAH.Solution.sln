@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Extension", "BAH.BOS.Extension\BAH.BOS.Extension.csproj", "{FFCCD361-FE4B-4D7E-AC0C-F34E7DD88265}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.Extension", "BAH.Extension\BAH.Extension.csproj", "{FC1D4EA0-41E9-4AB0-8297-1E33CA0D3631}"
@@ -8,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Core.Extension", "BAH.BOS.Core.Extension\BAH.BOS.Core.Extension.csproj", "{772A1320-7545-44A1-AB77-E8FF01760FAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.WebAPI.ServiceStub", "BAH.BOS.WebAPI.ServiceStub\BAH.BOS.WebAPI.ServiceStub.csproj", "{252B376D-C9FB-4059-9D8F-E097EAAC3490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.App.Core.Extension", "BAH.BOS.App.Core.Extension\BAH.BOS.App.Core.Extension.csproj", "{C6B5138E-3603-4C21-B6DE-BB219D8E3589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Business.Extension", "BAH.BOS.Business.Extension\BAH.BOS.Business.Extension.csproj", "{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,14 @@ Global
 		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252B376D-C9FB-4059-9D8F-E097EAAC3490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B5138E-3603-4C21-B6DE-BB219D8E3589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B5138E-3603-4C21-B6DE-BB219D8E3589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B5138E-3603-4C21-B6DE-BB219D8E3589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B5138E-3603-4C21-B6DE-BB219D8E3589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

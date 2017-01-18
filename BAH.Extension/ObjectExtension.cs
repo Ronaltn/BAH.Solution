@@ -154,13 +154,14 @@ namespace System
         /// <summary>
         /// 对象自适应。
         /// </summary>
-        /// <typeparam name="T">对象泛型定义。</typeparam>
+        /// <typeparam name="TIn">输入对象泛型定义。</typeparam>
+        /// <typeparam name="TOut">输出对象泛型定义。</typeparam>
         /// <param name="obj">Object对象。</param>
         /// <param name="precidate">自适应的方法委托。</param>
         /// <returns>返回结果。</returns>
-        public static T Adaptive<T>(this T obj, Func<T, T> precidate)
+        public static TOut Adaptive<TIn, TOut>(this TIn obj, Func<TIn, TOut> precidate)
         {
-            return precidate == null ? obj : precidate(obj);
+            return precidate == null ? default(TOut) : precidate(obj);
         }//end method
 
     }//end class

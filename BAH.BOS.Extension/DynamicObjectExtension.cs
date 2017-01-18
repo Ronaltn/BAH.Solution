@@ -18,11 +18,11 @@ namespace Kingdee.BOS.Orm.DataEntity
     {
         #region 基础方法
 
-        public static T Property<T>(this DynamicObject dataObject, string propertyName)
+        public static T Property<T>(this DynamicObject dataObject, string propertyName, T defValue = default(T))
         {
             if (dataObject == null || dataObject[propertyName] == null || DBNull.Value.Equals(dataObject[propertyName]))
             {
-                return default(T);
+                return defValue;
             }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
@@ -32,7 +32,6 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return dataObject[propertyName].ToType<T>();
             }
-
         }
 
         public static T FieldProperty<T>(this DynamicObject dataObject, BusinessInfo businessInfo, string keyName)
