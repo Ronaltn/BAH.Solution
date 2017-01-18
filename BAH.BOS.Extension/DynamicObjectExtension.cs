@@ -210,6 +210,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             return new DynamicObject[] { dataObject }.AutoSetBillNo(ctx, businessInfo).FirstOrDefault();
         }//end method
 
+        public static DynamicObject Load(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.Load(ctx, type, selector).FirstOrDefault();
+        }//end method
+
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
             return new DynamicObject[] { dataObject }.LoadFromCache(ctx, type, selector).FirstOrDefault();
@@ -230,14 +235,34 @@ namespace Kingdee.BOS.Orm.DataEntity
             return BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject, option);
         }//end method
 
+        public static void Delete(this DynamicObject dataObject, Context ctx, Func<DynamicObject, object> selector = null)
+        {
+            new DynamicObject[] { dataObject }.Delete(ctx, selector);
+        }//end method
+
+        public static IOperationResult Delete(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.Delete(ctx, businessInfo, option, selector);
+        }//end method
+
         public static IOperationResult Submit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
             return new DynamicObject[] { dataObject }.Submit(ctx, businessInfo, option, selector);
         }//end method
 
+        public static IOperationResult CancelAssign(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.CancelAssign(ctx, businessInfo, option, selector);
+        }//end method
+
         public static IOperationResult Audit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
             return new DynamicObject[] { dataObject }.Audit(ctx, businessInfo, option, selector);
+        }//end method
+
+        public static IOperationResult UnAudit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.UnAudit(ctx, businessInfo, option, selector);
         }//end method
 
         public static IOperationResult DoNothing(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, string operationNumber, OperateOption option = null)

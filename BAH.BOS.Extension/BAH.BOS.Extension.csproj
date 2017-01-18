@@ -34,6 +34,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
     </Reference>
+    <Reference Include="Kingdee.BOS.App, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.App.dll</HintPath>
+    </Reference>
     <Reference Include="Kingdee.BOS.App.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.App.Core.dll</HintPath>
@@ -68,7 +72,6 @@
     <Compile Include="DynamicObjectEnumerableExtension.cs" />
     <Compile Include="DynamicObjectExtension.cs" />
     <Compile Include="LocaleValueExtension.cs" />
-    <Compile Include="OperateOptionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

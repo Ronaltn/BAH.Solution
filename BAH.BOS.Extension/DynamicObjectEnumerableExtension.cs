@@ -87,7 +87,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             object[] pkIds = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
             IOperationResult result = BusinessDataServiceHelper.Delete(ctx, businessInfo, null, option, OperationNumberConst.OperationNumber_Delete);
             return result;
-        }
+        }//end method
 
         public static IOperationResult Submit(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
