@@ -1,7 +1,7 @@
 ﻿using Kingdee.BOS;
 using Kingdee.BOS.Contracts;
-using Kingdee.BOS.MC.ServiceFacade.KDServiceClient;
 using Kingdee.BOS.ServiceFacade.KDServiceFx;
+using Kingdee.BOS.ServiceHelper;
 using Kingdee.BOS.WebApi.ServicesStub;
 using System;
 using System.Collections.Generic;
@@ -25,29 +25,28 @@ namespace BAH.BOS.WebAPI.ServiceStub.MC
         /// 获取业务数据中心。
         /// </summary>
         /// <returns>返回服务端结果。</returns>
-        public virtual ServiceResult<List<DataCenter>> GetBusinessDataCenters()
+        public virtual ServiceResult<List<object>> GetDataCenterList()
         {
-            var result = new ServiceResult<List<DataCenter>>();
+            var result = new ServiceResult<List<object>>();
 
             try
             {
-                var murl = KDConfiguration.Current.ManagementSiteUrl;
-                var service = ServiceFactory.GetDataCenterService(murl);
-                var mctx = service.GetManagementDataCenterContext();
-                var infos = service.GetAllBusinessDataCenterInfo(mctx);
+                var infos = DataCenterService.GetDataCentersFromMC(string.Empty, Context.DataBaseCategory.Normal);
 
                 result.Code = (int)ResultCode.Success;
-                result.Data = infos.Select(db => new DataCenter 
+                result.Message = string.Format("成功返回{0}个数据中心！", infos.Count);
+                result.Data = infos.Select(db => new
                 {
-                    Id = db.DataCenterID, 
-                    Name = db.DataCenterName.ToString() 
-                }).ToList();
+                    Id = db.Id,
+                    Number = db.Number,
+                    Name = db.Name
+                }).Cast<object>().ToList();
             }
-            catch
+            catch (Exception ex)
             {
                 result.Code = (int)ResultCode.Fail;
+                result.Message = ex.Message;
             }
-
             return result;
         }//end method
 
