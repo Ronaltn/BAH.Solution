@@ -45,10 +45,44 @@ namespace Kingdee.BOS.Orm.DataEntity
             return BusinessDataServiceHelper.Load(ctx, pkArray, type);
         }//end method
 
+        public static DynamicObject[] Load(this IEnumerable<DynamicObject> dataObject, Context ctx, string formId, Func<DynamicObject, object> selector = null, params string[] fieldKeys)
+        {
+            var metadata = FormMetaDataCache.GetCachedFormMetaData(ctx, formId);
+            var businessInfo = metadata.BusinessInfo.Adaptive(info =>
+            {
+                if (fieldKeys != null && fieldKeys.Length > 0)
+                {
+                    return info.GetSubBusinessInfo(fieldKeys.ToList());
+                }
+                else
+                {
+                    return info;
+                }
+            });
+            return Load(dataObject, ctx, businessInfo.GetDynamicObjectType(), selector);
+        }//end method
+
         public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
             var pkArray = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type);
+        }//end method
+
+        public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, string formId, Func<DynamicObject, object> selector = null, params string[] fieldKeys)
+        {
+            var metadata = FormMetaDataCache.GetCachedFormMetaData(ctx, formId);
+            var businessInfo = metadata.BusinessInfo.Adaptive(info => 
+            {
+                if (fieldKeys != null && fieldKeys.Length > 0)
+                {
+                    return info.GetSubBusinessInfo(fieldKeys.ToList());
+                }
+                else
+                {
+                    return info;
+                }
+            });
+            return LoadFromCache(dataObject, ctx, businessInfo.GetDynamicObjectType(), selector);
         }//end method
 
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)

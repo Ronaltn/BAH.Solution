@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.App.Core.Extension"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Business.Extension", "BAH.BOS.Business.Extension\BAH.BOS.Business.Extension.csproj", "{3A31E799-46DA-4417-ADFD-D54A9F7A8D5C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{106A8934-4B92-48DD-94D5-C70A25096501}"
+	ProjectSection(SolutionItems) = preProject
+		a0 delete all pdb files.cmd = a0 delete all pdb files.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

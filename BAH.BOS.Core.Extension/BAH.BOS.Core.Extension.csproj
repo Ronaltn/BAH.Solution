@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessInfoExtension.cs" />
     <Compile Include="IOperationResultExtension.cs" />
     <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

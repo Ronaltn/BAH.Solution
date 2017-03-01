@@ -215,10 +215,20 @@ namespace Kingdee.BOS.Orm.DataEntity
             return new DynamicObject[] { dataObject }.Load(ctx, type, selector).FirstOrDefault();
         }//end method
 
+        public static DynamicObject Load(this DynamicObject dataObject, Context ctx, string formId, Func<DynamicObject, object> selector = null, params string[] fieldKeys)
+        {
+            return new DynamicObject[] { dataObject }.Load(ctx, formId, selector, fieldKeys).FirstOrDefault();
+        }
+
         public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
             return new DynamicObject[] { dataObject }.LoadFromCache(ctx, type, selector).FirstOrDefault();
         }//end method
+
+        public static DynamicObject LoadFromCache(this DynamicObject dataObject, Context ctx, string formId, Func<DynamicObject, object> selector = null, params string[] fieldKeys)
+        {
+            return new DynamicObject[] { dataObject }.LoadFromCache(ctx, formId, selector, fieldKeys).FirstOrDefault();
+        }
 
         public static IOperationResult Draft(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
