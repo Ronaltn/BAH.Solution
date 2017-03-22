@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CompositePackage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>59f2ab9a-7283-4803-a5c7-fba2134ca3c1</Id>
+  <MasterId>K3Cloud</MasterId>
+  <Name>BAH(BOS)</Name>
+  <Developer>
+    <Id>IBHC-LMFG-QIMZ-NWGC-LHQA</Id>
+    <DevCode>BAH</DevCode>
+    <Level>1</Level>
+    <Name>BAH</Name>
+  </Developer>
+  <RequiredPackages />
+  <IsSuperPkg>false</IsSuperPkg>
+  <IncludedExtended>false</IncludedExtended>
+  <DevPhase>Unknown</DevPhase>
+  <CanBeStopped>false</CanBeStopped>
+  <Deploy>Business</Deploy>
+  <PackageCategory>FuncPackage</PackageCategory>
+  <IsReplace>true</IsReplace>
+  <LocaleId>0</LocaleId>
+  <ChildPkgDefs>
+    <ChildExtPkgItem>
+      <Target>CompileAndPackage</Target>
+      <OutDir>AM</OutDir>
+      <Seq>0</Seq>
+      <Name>Assembly Package</Name>
+      <ComponentPath>Code\app.pkgdef</ComponentPath>
+      <Type>AssemblyModel</Type>
+    </ChildExtPkgItem>
+    <ChildExtPkgItem>
+      <Target>CompileAndPackage</Target>
+      <OutDir>DM</OutDir>
+      <Seq>0</Seq>
+      <Name>MetaData Package</Name>
+      <ComponentPath>DataModel\meta.pkgdef</ComponentPath>
+      <Type>DataModel</Type>
+    </ChildExtPkgItem>
+  </ChildPkgDefs>
+  <Children />
+</CompositePackage>

@@ -1,0 +1,30 @@
+<XmlDataCollection>
+  <XmlData TableName="T_BAS_FILTERSCHEME" ColName="FSCHEME" UpgradeCoverage="true">
+    <TablePK>
+      <Column Name="FSCHEMEID" Value="58c8d9be1da2fe" Type="VARCHAR2" />
+    </TablePK>
+    <Comment>
+      <ListFilterSchemeEntity>
+        <SelectEntitySetting>,FBILLHEAD,</SelectEntitySetting>
+        <IsolationOrgListSetting>1</IsolationOrgListSetting>
+        <FilterSetting>[{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_NEW","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_MODIFY","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_DELETE","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_VIEW","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_SUBMIT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_AUDIT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_UNAUDIT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_EXPORT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_PRINT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_ACCESSORY","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_CANCELASSIGN","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_FILEDOWNLOAD","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_FILEONLINEVIEW","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_FILEONLINEPRINT","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_PRINT_SETTOALL","Right":"","Logic":1},{"Left":"","FieldName":"FNumber","Compare":"67","Value":"BOS_TRACK","Right":"","Logic":0}]</FilterSetting>
+        <QuickFilterSetting>[]</QuickFilterSetting>
+        <SortSetting>[
+  {
+    "FieldName": "FGroup",
+    "SortType": 0
+  },
+  {
+    "FieldName": "FNumber",
+    "SortType": 0
+  }
+]</SortSetting>
+        <BatchFilterSetting>{"Source":[]}</BatchFilterSetting>
+        <ColumnSetting>[{"F":"FGROUP","I":1,"V":1,"W":100,"L":false},{"F":"FNUMBER","I":2,"V":1,"W":100,"L":false},{"F":"FNAME","I":3,"V":1,"W":100,"L":false},{"F":"FDESCRIPTION","I":4,"V":1,"W":100,"L":false},{"F":"FSEQ","I":5,"V":0,"W":100,"L":false},{"F":"FISSYSPRESET","I":6,"V":1,"W":100,"L":false}]</ColumnSetting>
+        <CustomFilterSetting>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;ORMBOS_Stand /&gt;</CustomFilterSetting>
+        <StatusFilterSetting>[]</StatusFilterSetting>
+      </ListFilterSchemeEntity>
+    </Comment>
+  </XmlData>
+</XmlDataCollection>
+

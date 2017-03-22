@@ -4,19 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{252B376D-C9FB-4059-9D8F-E097EAAC3490}</ProjectGuid>
+    <ProjectGuid>{772A1320-7545-44A1-AB77-E8FF01760FAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BAH.BOS.WebAPI.ServiceStub</RootNamespace>
-    <AssemblyName>BAH.BOS.WebAPI.ServiceStub</AssemblyName>
+    <RootNamespace>BAH.BOS.Core.Extension</RootNamespace>
+    <AssemblyName>BAH.BOS.Core.Extension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ReferencePath>..\..\K3Cloud\bin</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Program Files %28x86%29\Kingdee\K3Cloud\WebSite\Bin\</OutputPath>
+    <OutputPath>..\..\K3Cloud\bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,32 +33,24 @@
   <ItemGroup>
     <Reference Include="Kingdee.BOS, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.dll</HintPath>
+      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.dll</HintPath>
     </Reference>
-    <Reference Include="Kingdee.BOS.Contracts, Version=6.1.39.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kingdee.BOS.Core">
+      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Kingdee.BOS.DataEntity, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
+      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.DataEntity.dll</HintPath>
     </Reference>
-    <Reference Include="Kingdee.BOS.DataEntity, Version=6.1.316.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kingdee.BOS.Model, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
+      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.Model.dll</HintPath>
     </Reference>
-    <Reference Include="Kingdee.BOS.ServiceFacade.KDServiceFx">
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.ServiceFacade.KDServiceFx.dll</HintPath>
-    </Reference>
-    <Reference Include="Kingdee.BOS.ServiceHelper, Version=6.1.316.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kingdee.BOS.ServiceHelper, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="Kingdee.BOS.WebApi.ServicesStub">
-      <HintPath>D:\K3Cloud\WebSite\bin\Kingdee.BOS.WebApi.ServicesStub.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\K3Cloud\WebSite\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -66,23 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractWebApiBusinessServiceExtension.cs" />
-    <Compile Include="Demo\DemoService.cs" />
-    <Compile Include="MC\MCService.cs" />
-    <Compile Include="ServiceResult.cs" />
-    <Compile Include="ResultCode.cs" />
-    <Compile Include="Session\SessionService.cs" />
+    <Compile Include="IOperationResultExtension.cs" />
+    <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BAH.BOS.Extension\BAH.BOS.Extension.csproj">
       <Project>{ffccd361-fe4b-4d7e-ac0c-f34e7dd88265}</Project>
       <Name>BAH.BOS.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BAH.Extension\BAH.Extension.csproj">
-      <Project>{fc1d4ea0-41e9-4ab0-8297-1e33ca0d3631}</Project>
-      <Name>BAH.Extension</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

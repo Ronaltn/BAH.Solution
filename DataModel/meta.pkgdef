@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>01a88f7f-773e-4da9-b341-8be206a9013e</Id>
+  <MasterId>K3Cloud</MasterId>
+  <Name>元数据包</Name>
+  <Developer>
+    <Id>IBHC-LMFG-QIMZ-NWGC-LHQA</Id>
+    <DevCode>BAH</DevCode>
+    <Level>1</Level>
+    <Name>BAH</Name>
+  </Developer>
+  <RequiredPackages />
+  <ExclusivePackages />
+  <IsSuperPkg>false</IsSuperPkg>
+  <IncludedExtended>false</IncludedExtended>
+  <DevPhase>Unknown</DevPhase>
+  <CanBeStopped>false</CanBeStopped>
+  <Deploy>Business</Deploy>
+  <PackageCategory>FuncPackage</PackageCategory>
+  <IsReplace>true</IsReplace>
+  <LocaleId>0</LocaleId>
+  <Issues />
+  <Links />
+  <PreInstallMsg />
+  <AfterInstallMsg />
+  <BasedBOSPackageId>K3CloudV1.0_MuPan3_BOS_DM</BasedBOSPackageId>
+  <CommonScript>
+    <CommonScripts Seq="0">
+      <Scripts />
+    </CommonScripts>
+  </CommonScript>
+  <LinkBusinessObjects>
+    <DynamicLinkBusinessObject>
+      <Target>CompileAndPackage</Target>
+      <Caption>基对象模板</Caption>
+      <Name>META</Name>
+      <ComponentPath>BaseObjectModel_69cbe48e</ComponentPath>
+    </DynamicLinkBusinessObject>
+  </LinkBusinessObjects>
+  <BusinessObjects />
+  <ResourceObject />
+  <StartScript>
+    <SchemaScript Seq="0">
+      <Scripts />
+    </SchemaScript>
+    <ConsoleMenuScript Seq="0">
+      <Scripts />
+    </ConsoleMenuScript>
+    <InstallPlugIns />
+    <SimpleDataScript Seq="0">
+      <Scripts>
+        <SqlScript Target="CompileAndPackage" ComponentPath="Start\BasicData\SimpleData\58c8a1b61da2e5_filterPlan.sql" SqlSyntaxType="KSQL" Assertion="Semicolon" Seq="0" Id="58c8a1b61da2e5_filterPlan.sql" UniqueScope="ISV" VerRule="ByContent" Level="0" Name="[过滤方案]不受组织控制基础资料">[过滤方案]不受组织控制基础资料</SqlScript>
+        <SqlScript Target="CompileAndPackage" ComponentPath="Start\BasicData\SimpleData\58c8d9be1da2fe_filterPlan.sql" SqlSyntaxType="KSQL" Assertion="Semicolon" Seq="0" Id="58c8d9be1da2fe_filterPlan.sql" UniqueScope="ISV" VerRule="ByContent" Level="0" Name="[过滤方案]业务单据">[过滤方案]业务单据</SqlScript>
+        <SqlScript Target="CompileAndPackage" ComponentPath="Start\BasicData\SimpleData\58c8dbe91da300_filterPlan.sql" SqlSyntaxType="KSQL" Assertion="Semicolon" Seq="0" Id="58c8dbe91da300_filterPlan.sql" UniqueScope="ISV" VerRule="ByContent" Level="0" Name="[过滤方案]查询业务">[过滤方案]查询业务</SqlScript>
+      </Scripts>
+    </SimpleDataScript>
+    <DependentDataScript Seq="0">
+      <Scripts />
+    </DependentDataScript>
+    <PrepareDatas />
+  </StartScript>
+  <AutoUpdateTable>true</AutoUpdateTable>
+  <StopScript />
+</DataModel>

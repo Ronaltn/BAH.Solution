@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssemblyModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>06fec210-7d85-464c-b48e-0af064678110</Id>
+  <MasterId>K3Cloud</MasterId>
+  <Name>程序集包</Name>
+  <Developer>
+    <Id>IBHC-LMFG-QIMZ-NWGC-LHQA</Id>
+    <DevCode>BAH</DevCode>
+    <Level>1</Level>
+    <Name>BAH</Name>
+  </Developer>
+  <RequiredPackages />
+  <ExclusivePackages />
+  <IsSuperPkg>false</IsSuperPkg>
+  <IncludedExtended>false</IncludedExtended>
+  <DevPhase>Unknown</DevPhase>
+  <CanBeStopped>false</CanBeStopped>
+  <Deploy>Business</Deploy>
+  <PackageCategory>FuncPackage</PackageCategory>
+  <IsReplace>true</IsReplace>
+  <LocaleId>0</LocaleId>
+  <Issues />
+  <Links />
+  <PreInstallMsg />
+  <AfterInstallMsg />
+  <PlugIns />
+  <KDServices>
+    <DataEntities />
+    <Contracts />
+    <ServiceHelpers />
+    <AppServices />
+    <Resources />
+  </KDServices>
+  <OtherComponents>
+    <KDComponent xsi:type="DotNetProjectComponent">
+      <Target>CompileAndPackage</Target>
+      <Name>BAH.BOS.Core.Extension.csproj</Name>
+      <ComponentPath>BAH.BOS.Core.Extension\BAH.BOS.Core.Extension.csproj</ComponentPath>
+      <Type>Assembly</Type>
+      <OpeType>AddOrUpdate</OpeType>
+      <OutputPath>Bin</OutputPath>
+      <Condition />
+      <OutputAssemblyFile>BAH.BOS.Core.Extension.dll</OutputAssemblyFile>
+      <GenerateManifests>false</GenerateManifests>
+      <ReferencePaths>
+        <string>..\..\K3Cloud\bin</string>
+      </ReferencePaths>
+      <TargetPlatform />
+      <OtherOutputResources />
+      <SmartAssembly>false</SmartAssembly>
+    </KDComponent>
+    <KDComponent xsi:type="DotNetProjectComponent">
+      <Target>CompileAndPackage</Target>
+      <Name>BAH.BOS.Extension.csproj</Name>
+      <ComponentPath>BAH.BOS.Extension\BAH.BOS.Extension.csproj</ComponentPath>
+      <Type>Assembly</Type>
+      <OpeType>AddOrUpdate</OpeType>
+      <OutputPath>Bin</OutputPath>
+      <Condition />
+      <OutputAssemblyFile>BAH.BOS.Extension.dll</OutputAssemblyFile>
+      <GenerateManifests>false</GenerateManifests>
+      <ReferencePaths>
+        <string>..\..\K3Cloud\bin</string>
+      </ReferencePaths>
+      <TargetPlatform />
+      <OtherOutputResources />
+      <SmartAssembly>false</SmartAssembly>
+    </KDComponent>
+    <KDComponent xsi:type="DotNetProjectComponent">
+      <Target>CompileAndPackage</Target>
+      <Name>BAH.BOS.WebAPI.ServiceStub.csproj</Name>
+      <ComponentPath>BAH.BOS.WebAPI.ServiceStub\BAH.BOS.WebAPI.ServiceStub.csproj</ComponentPath>
+      <Type>Assembly</Type>
+      <OpeType>AddOrUpdate</OpeType>
+      <OutputPath>Bin</OutputPath>
+      <Condition />
+      <OutputAssemblyFile>BAH.BOS.WebAPI.ServiceStub.dll</OutputAssemblyFile>
+      <GenerateManifests>false</GenerateManifests>
+      <ReferencePaths>
+        <string>..\..\K3Cloud\bin</string>
+      </ReferencePaths>
+      <TargetPlatform />
+      <OtherOutputResources />
+      <SmartAssembly>false</SmartAssembly>
+    </KDComponent>
+    <KDComponent xsi:type="DotNetProjectComponent">
+      <Target>CompileAndPackage</Target>
+      <Name>BAH.Extension.csproj</Name>
+      <ComponentPath>BAH.Extension\BAH.Extension.csproj</ComponentPath>
+      <Type>Assembly</Type>
+      <OpeType>AddOrUpdate</OpeType>
+      <OutputPath>Bin</OutputPath>
+      <Condition />
+      <OutputAssemblyFile>BAH.Extension.dll</OutputAssemblyFile>
+      <GenerateManifests>false</GenerateManifests>
+      <ReferencePaths>
+        <string>..\..\K3Cloud\bin</string>
+      </ReferencePaths>
+      <TargetPlatform />
+      <OtherOutputResources />
+      <SmartAssembly>false</SmartAssembly>
+    </KDComponent>
+  </OtherComponents>
+  <TestPlugIns />
+  <Resources />
+  <BusinessPlugIns />
+</AssemblyModel>
