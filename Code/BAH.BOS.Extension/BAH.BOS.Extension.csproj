@@ -33,31 +33,31 @@
   <ItemGroup>
     <Reference Include="Kingdee.BOS, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.App, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.App.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.App.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.App.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.App.Core.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.App.Core.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.Contracts, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.Contracts.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.Core, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.Core.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Core.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.DataEntity, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.DataEntity.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
     </Reference>
     <Reference Include="Kingdee.BOS.ServiceHelper, Version=5.1.238.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\K3Cloud\bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
