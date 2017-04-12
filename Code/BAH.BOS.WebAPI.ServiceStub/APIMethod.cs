@@ -9,7 +9,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
     /// <summary>
     /// 接口方法抽象类。
     /// </summary>
-    public abstract class APIMethod<TParameter, TResult>
+    public abstract class APIMethod<TParameter>
     {
         /// <summary>
         /// 上下文对象。
@@ -24,7 +24,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
         /// <summary>
         /// 输出结果。
         /// </summary>
-        public ServiceResult<TResult> Result { get; protected set; }
+        public ServiceResult Result { get; protected set; }
 
         /// <summary>
         /// 接口方法构造。
@@ -35,7 +35,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
         {
             this.Context = ctx;
             this.Parameter = parameter;
-            this.Result = new ServiceResult<TResult>();
+            this.Result = new ServiceResult();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace BAH.BOS.WebAPI.ServiceStub
             {
                 this.Implement();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.HandleException(ex);
             }
@@ -71,5 +71,28 @@ namespace BAH.BOS.WebAPI.ServiceStub
         /// </summary>
         /// <param name="ex">异常实例。</param>
         public abstract void HandleException(Exception ex);
+    }
+
+    /// <summary>
+    /// 接口方法抽象类。
+    /// </summary>
+    public abstract class APIMethod<TParameter, TResult> : APIMethod<TParameter>
+    {
+        /// <summary>
+        /// 输出结果。
+        /// </summary>
+        public new ServiceResult<TResult> Result { get; protected set; }
+
+        /// <summary>
+        /// 接口方法构造。
+        /// </summary>
+        /// <param name="ctx">上下文对象。</param>
+        /// <param name="parameter">传入参数。</param>
+        public APIMethod(Context ctx, TParameter parameter) : base(ctx, parameter)
+        {
+            this.Context = ctx;
+            this.Parameter = parameter;
+            this.Result = new ServiceResult<TResult>();
+        }
     }
 }

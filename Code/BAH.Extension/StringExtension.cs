@@ -11,5 +11,10 @@ namespace System
         {
             return string.IsNullOrWhiteSpace(str) ? string.Empty : str;
         }
+
+        public static string NullWhenEmpty(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? null : str;
+        }
     }
 }

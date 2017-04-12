@@ -46,6 +46,12 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return default(T);
             }
+            else if (typeof(T).Equals(typeof(DateTime?)))
+            {
+                return field.DynamicProperty.GetValue(dataObject)
+                            .Adaptive(datetime => datetime != null ? datetime.ToType<DateTime>() : default(DateTime?))
+                            .ToType<T>();
+            }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return field.DynamicProperty.GetValue(dataObject).ToChangeType<T>();
@@ -78,13 +84,19 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return default(T);
             }
+            else if (typeof(T).Equals(typeof(DateTime?)))
+            {
+                return field.GetRefPropertyValue2(dataObject, keyName)
+                            .Adaptive(datetime => datetime != null ? datetime.ToType<DateTime>() : default(DateTime?))
+                            .ToType<T>();
+            }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
-                return field.GetRefPropertyValue(dataObject, keyName).ToChangeType<T>();
+                return field.GetRefPropertyValue2(dataObject, keyName).ToChangeType<T>();
             }
             else
             {
-                return field.GetRefPropertyValue(dataObject, keyName).ToType<T>();
+                return field.GetRefPropertyValue2(dataObject, keyName).ToType<T>();
             }
         }
 
@@ -193,7 +205,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BillNo(this DynamicObject dataObject, BillNoField field)
         {
-            return field.DynamicProperty.GetValue<string>(dataObject);
+            return FieldProperty<string>(dataObject, field);
         }//end method
 
         #endregion
