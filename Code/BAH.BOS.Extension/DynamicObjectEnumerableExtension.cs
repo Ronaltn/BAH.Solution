@@ -1,9 +1,11 @@
 ﻿using Kingdee.BOS.App.Core;
 using Kingdee.BOS.Core;
 using Kingdee.BOS.Core.DynamicForm;
+using Kingdee.BOS.Core.Interaction;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Orm.Metadata.DataEntity;
 using Kingdee.BOS.ServiceHelper;
+using Kingdee.BOS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +89,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             IOperationResult result = BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject.ToArray(), option);
             return result;
         }//end method
@@ -98,6 +104,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult Save(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             IOperationResult result = BusinessDataServiceHelper.Save(ctx, businessInfo, dataObject.ToArray(), option);
             return result;
         }//end method
@@ -118,6 +128,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult Delete(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo,OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             object[] pkIds = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
             IOperationResult result = BusinessDataServiceHelper.Delete(ctx, businessInfo, null, option, OperationNumberConst.OperationNumber_Delete);
             return result;
@@ -125,6 +139,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult Submit(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             object[] pkIds = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
             IOperationResult result = BusinessDataServiceHelper.Submit(ctx, businessInfo, pkIds, "Submit", option);
             return result;
@@ -132,6 +150,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult CancelAssign(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             var pkIds = dataObject.Select(data => new KeyValuePair<object, object>(selector != null ? selector(data) : data.PkId(), ""))
                                   .ToList();
 
@@ -141,6 +163,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult Audit(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             var pkIds = dataObject.Select(data => new KeyValuePair<object, object>(selector != null ? selector(data) : data.PkId(), ""))
                                   .ToList();
 
@@ -154,6 +180,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult UnAudit(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             var pkIds = dataObject.Select(data => new KeyValuePair<object, object>(selector != null ? selector(data) : data.PkId(), ""))
                                   .ToList();
 
@@ -167,6 +197,10 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static IOperationResult DoNothing(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, string operationNumber, OperateOption option = null)
         {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
             IOperationResult result = BusinessDataServiceHelper.DoNothingWithDataEntity(ctx, businessInfo, dataObject.ToArray(), operationNumber, option);
             return result;
         }//end method
