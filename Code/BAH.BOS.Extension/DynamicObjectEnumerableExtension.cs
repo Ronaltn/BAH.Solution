@@ -133,7 +133,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             option.SetIgnoreInteractionFlag(true);
 
             object[] pkIds = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
-            IOperationResult result = BusinessDataServiceHelper.Delete(ctx, businessInfo, null, option, OperationNumberConst.OperationNumber_Delete);
+            IOperationResult result = BusinessDataServiceHelper.Delete(ctx, businessInfo, pkIds, option, OperationNumberConst.OperationNumber_Delete);
             return result;
         }//end method
 
