@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessInfoExtension.cs" />
+    <Compile Include="FormMetadataExtension.cs" />
+    <Compile Include="IBillViewExtension.cs" />
     <Compile Include="IOperationResultExtension.cs" />
     <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
