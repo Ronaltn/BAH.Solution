@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayExtension.cs" />
+    <Compile Include="BoolExtension.cs" />
     <Compile Include="DateTimeExtension.cs" />
     <Compile Include="EnumerableExtension.cs" />
     <Compile Include="GuidExtension.cs" />
