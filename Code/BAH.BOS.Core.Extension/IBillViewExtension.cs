@@ -2,6 +2,7 @@
 using Kingdee.BOS.Core.DynamicForm.PlugIn;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.FormElement;
+using Kingdee.BOS.Orm.DataEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,14 @@ namespace Kingdee.BOS.Core.Bill
             return billView;
         }
 
+        public static IBillView AddNew(this IBillView billView, DynamicObject dataObject)
+        {
+            billView.Model.DataChanged = false;
+            billView.Model.DataObject = dataObject;
+
+            return billView;
+        }
+
         public static IBillView Edit(this IBillView billView, object id)
         {
             billView.OpenParameter.Status = OperationStatus.EDIT;
@@ -50,6 +59,19 @@ namespace Kingdee.BOS.Core.Bill
             {
                 form.FormIdDynamicProperty.SetValue(billView.Model.DataObject, form.Id);
             }//end if
+
+            return billView;
+        }
+
+        public static IBillView Edit(this IBillView billView, DynamicObject dataObject)
+        {
+            billView.OpenParameter.Status = OperationStatus.EDIT;
+            billView.OpenParameter.CreateFrom = CreateFrom.Default;
+            billView.OpenParameter.PkValue = dataObject.PkId<string>();
+            billView.OpenParameter.DefaultBillTypeId = string.Empty;
+
+            billView.Model.DataChanged = false;
+            billView.Model.DataObject = dataObject;
 
             return billView;
         }
