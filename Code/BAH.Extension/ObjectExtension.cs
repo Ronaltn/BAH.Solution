@@ -12,6 +12,17 @@ namespace System
     public static class ObjectExtension
     {
         /// <summary>
+        /// 类型转换。
+        /// </summary>
+        /// <typeparam name="T">结果类型。</typeparam>
+        /// <param name="obj">Object对象。</param>
+        /// <returns>返回结果。</returns>
+        public static T AsType<T>(this object obj) where T : class
+        {
+            return obj as T;
+        }//end method
+
+        /// <summary>
         /// 隐式转换。
         /// </summary>
         /// <typeparam name="T">结果类型。</typeparam>

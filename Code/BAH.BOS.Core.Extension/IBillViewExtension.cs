@@ -15,8 +15,21 @@ namespace Kingdee.BOS.Core.Bill
     /// </url>
     public static class IBillViewExtension
     {
+        /// <summary>
+        /// 转为动态表单服务内部服务，为字段赋值时建议使用该对象。
+        /// </summary>
+        /// <param name="billView">单据服务。</param>
+        /// <returns>返回动态表单内部服务。</returns>
+        public static IDynamicFormViewService AsDynamicFormViewService(this IBillView billView)
+        {
+            return billView as IDynamicFormViewService;
+        }
+
         public static IBillView AddNew(this IBillView billView)
         {
+            billView.OpenParameter.Status = OperationStatus.ADDNEW;
+            billView.OpenParameter.PkValue = null;
+
             //新建一个空白数据
             billView.CreateNewModelData();
             ((IBillViewService)billView).LoadData();
@@ -39,6 +52,9 @@ namespace Kingdee.BOS.Core.Bill
 
         public static IBillView AddNew(this IBillView billView, DynamicObject dataObject)
         {
+            billView.OpenParameter.Status = OperationStatus.ADDNEW;
+            billView.OpenParameter.PkValue = null;
+
             billView.Model.DataChanged = false;
             billView.Model.DataObject = dataObject;
 
@@ -48,9 +64,7 @@ namespace Kingdee.BOS.Core.Bill
         public static IBillView Edit(this IBillView billView, object id)
         {
             billView.OpenParameter.Status = OperationStatus.EDIT;
-            billView.OpenParameter.CreateFrom = CreateFrom.Default;
             billView.OpenParameter.PkValue = id;
-            billView.OpenParameter.DefaultBillTypeId = string.Empty;
             ((IDynamicFormViewService)billView).LoadData();
 
             //设置FormId
@@ -66,9 +80,7 @@ namespace Kingdee.BOS.Core.Bill
         public static IBillView Edit(this IBillView billView, DynamicObject dataObject)
         {
             billView.OpenParameter.Status = OperationStatus.EDIT;
-            billView.OpenParameter.CreateFrom = CreateFrom.Default;
             billView.OpenParameter.PkValue = dataObject.PkId<string>();
-            billView.OpenParameter.DefaultBillTypeId = string.Empty;
 
             billView.Model.DataChanged = false;
             billView.Model.DataObject = dataObject;
