@@ -67,7 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIMethod.cs" />
     <Compile Include="AbstractWebApiBusinessServiceExtension.cs" />
     <Compile Include="Demo\DemoService.cs" />
     <Compile Include="MC\MCService.cs" />

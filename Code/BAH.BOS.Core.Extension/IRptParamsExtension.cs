@@ -28,7 +28,7 @@ namespace Kingdee.BOS.Core.Report
             var reportFilterServiceProvider = reportFilterMetadata.BusinessInfo.GetForm().GetFormServiceProvider();
 
             //过滤方案元数据。
-            var schemeFormId = "BOS_FilterScheme";
+            var schemeFormId = FormIdConst.BOS_FilterScheme;
             var schemeMetadata = FormMetaDataCache.GetCachedFormMetaData(ctx, schemeFormId);
 
             //用户参数元数据。

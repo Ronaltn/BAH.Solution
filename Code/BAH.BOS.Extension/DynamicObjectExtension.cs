@@ -1,5 +1,4 @@
-﻿using Kingdee.BOS.App.Core;
-using Kingdee.BOS.Core;
+﻿using Kingdee.BOS.Core;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;

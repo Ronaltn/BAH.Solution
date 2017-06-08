@@ -1,5 +1,4 @@
-﻿using Kingdee.BOS.App.Core;
-using Kingdee.BOS.Core;
+﻿using Kingdee.BOS.Core;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.Interaction;
 using Kingdee.BOS.Core.Metadata;
@@ -24,9 +23,7 @@ namespace Kingdee.BOS.Orm.DataEntity
                 .GroupBy(a => a.DataType)
                 .Select(g => new { DataType = g.Key, DataArray = g.Select(a => a.DataEntity).ToArray() })
                 .ToList();
-
-                SequenceReader reader = new SequenceReader(ctx);
-                group.ForEach(g => reader.AutoSetPrimaryKey(g.DataArray, g.DataType));
+                group.ForEach(g => DBServiceHelper.AutoSetPrimaryKey(ctx, g.DataArray, g.DataType));
             }//end if
             return dataArray;
         }//end method
