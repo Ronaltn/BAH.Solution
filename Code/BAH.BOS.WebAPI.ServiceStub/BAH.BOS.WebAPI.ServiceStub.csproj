@@ -31,27 +31,43 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BAH.BOS.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\BAH.BOS.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BAH.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\BAH.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Kingdee.BOS, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.Contracts, Version=6.1.39.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.DataEntity, Version=6.1.316.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.ServiceFacade.KDServiceFx">
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceFacade.KDServiceFx.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.ServiceHelper, Version=6.1.316.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.WebApi.ServicesStub">
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.WebApi.ServicesStub.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractWebApiBusinessServiceExtension.cs" />
+    <Compile Include="KDBaseServiceExtension.cs" />
     <Compile Include="Demo\DemoService.cs" />
     <Compile Include="MC\MCService.cs" />
     <Compile Include="ServiceResult.cs" />
@@ -75,16 +91,6 @@
     <Compile Include="Session\SessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\UserService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BAH.BOS.Extension\BAH.BOS.Extension.csproj">
-      <Project>{ffccd361-fe4b-4d7e-ac0c-f34e7dd88265}</Project>
-      <Name>BAH.BOS.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BAH.Extension\BAH.Extension.csproj">
-      <Project>{fc1d4ea0-41e9-4ab0-8297-1e33ca0d3631}</Project>
-      <Name>BAH.Extension</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

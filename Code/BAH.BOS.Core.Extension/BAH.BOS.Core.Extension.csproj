@@ -31,24 +31,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BAH.BOS.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\BAH.BOS.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Kingdee.BOS, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.Core">
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.DataEntity, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.Model, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Model.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kingdee.BOS.ServiceHelper, Version=5.1.395.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,12 +75,6 @@
     <Compile Include="IOperationResultExtension.cs" />
     <Compile Include="IRptParamsExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BAH.BOS.Extension\BAH.BOS.Extension.csproj">
-      <Project>{ffccd361-fe4b-4d7e-ac0c-f34e7dd88265}</Project>
-      <Name>BAH.BOS.Extension</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
