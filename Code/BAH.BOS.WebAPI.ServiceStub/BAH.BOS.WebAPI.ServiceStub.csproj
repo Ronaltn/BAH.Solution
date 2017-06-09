@@ -46,6 +46,7 @@
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Kingdee.BOS.BusinessEntity, Version=6.2.429.14, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="Kingdee.BOS.Contracts, Version=6.1.39.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
