@@ -46,7 +46,7 @@ namespace Kingdee.BOS.Core.DynamicForm
             */
             foreach (var operate in result.OperateResult)
             {
-                msg.AppendLine(operate.Message);
+                if (!operate.Message.IsNullOrEmptyOrWhiteSpace()) msg.AppendLine(operate.Message);
             }
             return msg.ToString();
         }//end static method
