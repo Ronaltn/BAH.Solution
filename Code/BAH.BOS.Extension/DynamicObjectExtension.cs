@@ -23,6 +23,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return defValue;
             }
+            else if (typeof(T).Equals(typeof(DateTime?)))
+            {
+                return dataObject[propertyName].Adaptive(datetime => datetime != null ? datetime.ToType<DateTime>() : default(DateTime?))
+                                               .ToType<T>();
+            }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
             {
                 return dataObject[propertyName].ToChangeType<T>();
@@ -75,6 +80,22 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return field.RefIDDynamicProperty.GetValue(dataObject).ToType<T>();
             } 
+        }
+
+        public static T FieldRefIdProperty<T>(this DynamicObject dataObject, RelatedFlexGroupField field)
+        {
+            if (dataObject == null)
+            {
+                return default(T);
+            }
+            else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            {
+                return field.RefIDDynamicProperty.GetValue(dataObject).ToChangeType<T>();
+            }
+            else
+            {
+                return field.RefIDDynamicProperty.GetValue(dataObject).ToType<T>();
+            }
         }
 
         public static T FieldRefProperty<T>(this DynamicObject dataObject, BaseDataField field, string keyName)

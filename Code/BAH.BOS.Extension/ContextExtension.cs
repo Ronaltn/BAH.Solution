@@ -70,7 +70,7 @@ namespace Kingdee.BOS
             ILoginService loginService = null;
             try
             {
-                loginService = ServiceFactory.GetLoginService(ctx.ServerUrl);
+                loginService = ServiceFactory.GetLoginService(string.Empty);
                 loginService.SetContextTimeZone(ctx);
             }
             catch 

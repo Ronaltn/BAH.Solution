@@ -202,5 +202,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             return result;
         }//end method
 
+        //待实现Enable和Forbid
+
     }//end class
 }//end namespace
