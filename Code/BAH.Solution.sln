@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.App.Extension", "BA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.Business.Extension", "BAH.BOS.Business.Extension\BAH.BOS.Business.Extension.csproj", "{20228643-19F5-478F-BBC4-7F733C8CE6FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAH.BOS.App.ServicePlugIn", "BAH.BOS.App.ServicePlugIn\BAH.BOS.App.ServicePlugIn.csproj", "{0AA6DFB5-8216-4745-BA1A-0EC9135672AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{20228643-19F5-478F-BBC4-7F733C8CE6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20228643-19F5-478F-BBC4-7F733C8CE6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20228643-19F5-478F-BBC4-7F733C8CE6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AA6DFB5-8216-4745-BA1A-0EC9135672AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA6DFB5-8216-4745-BA1A-0EC9135672AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA6DFB5-8216-4745-BA1A-0EC9135672AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA6DFB5-8216-4745-BA1A-0EC9135672AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
