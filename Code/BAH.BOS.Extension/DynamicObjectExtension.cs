@@ -200,7 +200,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BDNumber(this DynamicObject dataObject, BaseDataField field)
         {
-            return FieldRefProperty<string>(dataObject, field, "FNumber");
+            return FieldRefProperty<string>(dataObject, field, field.NumberProperty.Key);
         }//end method
 
         public static string BDName(this DynamicObject dataObject, int localeId)
@@ -215,7 +215,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static string BDName(this DynamicObject dataObject, BaseDataField field)
         {
-            return FieldRefProperty<string>(dataObject, field, "FName");
+            return FieldRefProperty<string>(dataObject, field, field.NameProperty.Key);
         }//end method
 
         public static string BillNo(this DynamicObject dataObject)
@@ -262,6 +262,11 @@ namespace Kingdee.BOS.Orm.DataEntity
             return new DynamicObject[] { dataObject }.LoadFromCache(ctx, formId, selector, fieldKeys).FirstOrDefault();
         }
 
+        public static void Append(this DynamicObject dataObject, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        {
+            new DynamicObject[] { dataObject }.Append(loader, selector);
+        }
+
         public static IOperationResult Draft(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
             return BusinessDataServiceHelper.Draft(ctx, businessInfo, dataObject, option);
@@ -305,6 +310,16 @@ namespace Kingdee.BOS.Orm.DataEntity
         public static IOperationResult UnAudit(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
         {
             return new DynamicObject[] { dataObject }.UnAudit(ctx, businessInfo, option, selector);
+        }//end method
+
+        public static IOperationResult Enable(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.Enable(ctx, businessInfo, option, selector);
+        }//end method
+
+        public static IOperationResult Forbid(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.Forbid(ctx, businessInfo, option, selector);
         }//end method
 
         public static IOperationResult DoNothing(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, string operationNumber, OperateOption option = null)

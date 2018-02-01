@@ -158,7 +158,7 @@ namespace System
         /// <returns>返回结果。</returns>
         public static T Adaptive<T>(this T obj, Action<T> action)
         {
-            if (action != null) action(obj);
+            action?.Invoke(obj);
             return obj;
         }//end method
 

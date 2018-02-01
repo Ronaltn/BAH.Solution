@@ -28,19 +28,19 @@ namespace Kingdee.BOS.Orm.DataEntity
             return dataArray;
         }//end method
 
-        public static DynamicObject[] AutoSetBillNo(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo)
+        public static DynamicObject[] AutoSetBillNo(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo,bool isUpdateMaxNum = true)
         {
             DynamicObject[] dataArray = dataObject.ToArray();
             if (dataArray.Any())
             {
-                BusinessDataServiceHelper.GetBillNo(ctx, businessInfo, dataArray, true);
+                BusinessDataServiceHelper.GetBillNo(ctx, businessInfo, dataArray, isUpdateMaxNum);
             }//end if
             return dataArray;
         }//end method
 
         public static DynamicObject[] Load(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
-            var pkArray = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
+            var pkArray = selector != null ? dataObject.Select(selector).Distinct().ToArray() : dataObject.Select(data => data.PkId()).Distinct().ToArray();
             return BusinessDataServiceHelper.Load(ctx, pkArray, type);
         }//end method
 
@@ -63,7 +63,7 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject[] LoadFromCache(this IEnumerable<DynamicObject> dataObject, Context ctx, DynamicObjectType type, Func<DynamicObject, object> selector = null)
         {
-            var pkArray = selector != null ? dataObject.Select(selector).ToArray() : dataObject.Select(data => data.PkId()).ToArray();
+            var pkArray = selector != null ? dataObject.Select(selector).Distinct().ToArray() : dataObject.Select(data => data.PkId()).Distinct().ToArray();
             return BusinessDataServiceHelper.LoadFromCache(ctx, pkArray, type);
         }//end method
 
@@ -82,6 +82,19 @@ namespace Kingdee.BOS.Orm.DataEntity
                 }
             });
             return LoadFromCache(dataObject, ctx, businessInfo.GetDynamicObjectType(), selector);
+        }//end method
+
+        public static void Append(this IEnumerable<DynamicObject> dataObject, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        {
+            var bag = loader(dataObject);
+            dataObject.Join(bag,
+                left => selector != null ? selector(left) : left.PkId(),
+                right => selector != null ? selector(right) : right.PkId(),
+                (left, right) =>
+                {
+                    left = right;
+                    return left;
+                }).ToArray();
         }//end method
 
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
@@ -192,6 +205,32 @@ namespace Kingdee.BOS.Orm.DataEntity
             return result;
         }//end method
 
+        public static IOperationResult Enable(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
+            var pkIds = dataObject.Select(data => new KeyValuePair<object, object>(selector != null ? selector(data) : data.PkId(), ""))
+                                  .ToList();
+
+            IOperationResult result = BusinessDataServiceHelper.SetBillStatus(ctx, businessInfo, pkIds, null, OperationNumberConst.OperationNumber_Enable, option);
+            return result;
+        }//end method
+
+        public static IOperationResult Forbid(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null, Func<DynamicObject, object> selector = null)
+        {
+            if (option == null) option = OperateOption.Create();
+            option.SetIgnoreWarning(true);
+            option.SetIgnoreInteractionFlag(true);
+
+            var pkIds = dataObject.Select(data => new KeyValuePair<object, object>(selector != null ? selector(data) : data.PkId(), ""))
+                                  .ToList();
+
+            IOperationResult result = BusinessDataServiceHelper.SetBillStatus(ctx, businessInfo, pkIds, null, OperationNumberConst.OperationNumber_Forbid, option);
+            return result;
+        }//end method
+
         public static IOperationResult DoNothing(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, string operationNumber, OperateOption option = null)
         {
             if (option == null) option = OperateOption.Create();
@@ -201,8 +240,6 @@ namespace Kingdee.BOS.Orm.DataEntity
             IOperationResult result = BusinessDataServiceHelper.DoNothingWithDataEntity(ctx, businessInfo, dataObject.ToArray(), operationNumber, option);
             return result;
         }//end method
-
-        //待实现Enable和Forbid
 
     }//end class
 }//end namespace
