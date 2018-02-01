@@ -56,6 +56,11 @@
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.Contracts.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Kingdee.BOS.Core, Version=7.1.570.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\bin\Kingdee.BOS.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Kingdee.BOS.DataEntity, Version=6.1.316.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.DataEntity.dll</HintPath>
@@ -89,14 +94,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KDBaseServiceExtension.cs" />
-    <Compile Include="Demo\DemoService.cs" />
+    <Compile Include="MC\Dto\DataCenterInfoOutput.cs" />
     <Compile Include="MC\MCService.cs" />
+    <Compile Include="MC\Method\GetDataCenterList.cs" />
     <Compile Include="ServiceResult.cs" />
     <Compile Include="ResultCode.cs" />
+    <Compile Include="Session\Method\Alive.cs" />
     <Compile Include="Session\SessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\UserService.cs" />
+    <Compile Include="Permission\Dto\UserOrgInfoOutput.cs" />
+    <Compile Include="Permission\Method\GetUserOrg.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

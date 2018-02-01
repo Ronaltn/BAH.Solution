@@ -1,47 +1,40 @@
-﻿using Kingdee.BOS;
-using Kingdee.BOS.Contracts;
+﻿using BAH.BOS.WebAPI.ServiceStub.MC.Dto;
+using Kingdee.BOS;
 using Kingdee.BOS.ServiceFacade.KDServiceFx;
 using Kingdee.BOS.ServiceHelper;
-using Kingdee.BOS.WebApi.ServicesStub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.BOS.WebAPI.ServiceStub.MC
+namespace BAH.BOS.WebAPI.ServiceStub.MC.Method
 {
     /// <summary>
-    /// 管理中心服务。
+    /// 获取业务数据中心列表。
     /// </summary>
-    [Obsolete("")]
-    public class MCService : AbstractWebApiBusinessService
+    public class GetDataCenterList : KDBaseService
     {
-        public MCService(KDServiceContext context)
-            : base(context)
+        public GetDataCenterList(KDServiceContext context) : base(context)
         {
 
-        }//end constructor
+        }
 
-        /// <summary>
-        /// 获取业务数据中心。
-        /// </summary>
-        /// <returns>返回服务端结果。</returns>
-        public virtual ServiceResult<List<object>> GetDataCenterList()
+        public virtual ServiceResult Invoke()
         {
-            var result = new ServiceResult<List<object>>();
+            var result = new ServiceResult<List<DataCenterInfoOutput>>();
 
             try
             {
                 var infos = DataCenterService.GetDataCentersFromMC(string.Empty, Context.DataBaseCategory.Normal);
 
                 result.Code = (int)ResultCode.Success;
-                result.Message = string.Format("成功返回{0}个数据中心！", infos.Count);
-                result.Data = infos.Select(db => new
+                result.Message = ResultCode.Success.ToString();
+                result.Data = infos.Select(db => new DataCenterInfoOutput
                 {
                     Id = db.Id,
                     Number = db.Number,
                     Name = db.Name
-                }).Cast<object>().ToList();
+                }).ToList();
             }
             catch (Exception ex)
             {

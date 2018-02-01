@@ -11,6 +11,7 @@ namespace BAH.BOS.WebAPI.ServiceStub.Session
     /// <summary>
     /// 会话服务。
     /// </summary>
+    [Obsolete]
     public class SessionService : AbstractWebApiBusinessService
     {
         public SessionService(KDServiceContext context)
