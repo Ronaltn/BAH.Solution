@@ -61,6 +61,7 @@ namespace Kingdee.BOS.Core.DynamicForm
         public static IOperationResult RepairPKValue(this IOperationResult result)
         {
             result.OperateResult
+                  .Where(item => item.PKValueIsNullOrEmpty)
                   .Join(result.MapSuccessDataEnityIndex, left => left.DataEntityIndex, right => right.Value, (left, right) =>
                   {
                       left.PKValue = right.Key;
