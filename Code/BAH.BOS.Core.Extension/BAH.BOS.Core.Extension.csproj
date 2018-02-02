@@ -36,6 +36,11 @@
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\BAH.BOS.Extension.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="BAH.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\bin\BAH.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Kingdee.BOS, Version=5.1.171.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.dll</HintPath>

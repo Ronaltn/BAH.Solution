@@ -1,5 +1,4 @@
-﻿using Kingdee.BOS.Core.DynamicForm;
-using Kingdee.BOS.Core.Interaction;
+﻿using Kingdee.BOS.Core.Interaction;
 using Kingdee.BOS.Util;
 using System;
 using System.Collections.Generic;
@@ -57,6 +56,17 @@ namespace Kingdee.BOS.Core.DynamicForm
 
             string message = predicate(result);
             throw new KDBusinessException(string.Empty, message);
+        }//end static method
+
+        public static IOperationResult RepairPKValue(this IOperationResult result)
+        {
+            result.OperateResult
+                  .Join(result.MapSuccessDataEnityIndex, left => left.DataEntityIndex, right => right.Value, (left, right) =>
+                  {
+                      left.PKValue = right.Key;
+                      return left;
+                  }).ToArray();
+            return result;
         }//end static method
 
     }//end static class
