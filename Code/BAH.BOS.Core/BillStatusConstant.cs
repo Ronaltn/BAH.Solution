@@ -8,6 +8,7 @@ namespace BAH.BOS.Core
     /// <summary>
     /// 状态枚举。
     /// </summary>
+    [Obsolete]
     public static class BillStatusConstant
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using BAH.BOS.Core;
+﻿using BAH.BOS.Core.BillStatus;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.DynamicForm.PlugIn;
 using Kingdee.BOS.Core.DynamicForm.PlugIn.Args;
@@ -7,10 +7,8 @@ using Kingdee.BOS.Core.Metadata.FieldElement;
 using Kingdee.BOS.Orm.DataEntity;
 using Kingdee.BOS.Util;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace BAH.BOS.App.ServicePlugIn.FormOperation
 {
@@ -39,7 +37,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             {
                 var dataEntities = e.SelectedRows
                                     .Select(row => row.DataEntity)
-                                    .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(BillStatusConstant.DocumentStatus.Approving))
+                                    .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(DocumentStatus.Instance.Approving()))
                                     .ToArray();
                 if (dataEntities.Any())
                 {
@@ -57,7 +55,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             {
                 var dataEntities = e.SelectedRows
                                     .Select(row => row.DataEntity)
-                                    .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(BillStatusConstant.DocumentStatus.Approved))
+                                    .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(DocumentStatus.Instance.Approved()))
                                     .ToArray();
                 if (dataEntities.Any())
                 {
@@ -79,18 +77,18 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                                     .ToArray();
 
                 //记下重新审核的数据
-                var reCreatedDataEntities = dataEntities.Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(BillStatusConstant.DocumentStatus.ReCreated))
+                var reCreatedDataEntities = dataEntities.Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(DocumentStatus.Instance.ReCreated()))
                                                         .ToArray();
 
                 //暂存
-                dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, BillStatusConstant.DocumentStatus.Draft));
+                dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
                 dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
                     if (!result.IsSuccess) this.OperationResult.MergeResult(result);
                 });
 
                 //保存
-                reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, BillStatusConstant.DocumentStatus.Created));
+                reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Created()));
                 dataEntities.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
                     if (!result.IsSuccess)

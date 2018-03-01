@@ -42,7 +42,7 @@ namespace Kingdee.BOS.Core.Metadata
             openParam.DefaultBillTypeId = string.Empty; //单据类型
             openParam.DefaultBusinessFlowId = string.Empty;//业务流程
             openParam.SetCustomParameter("ShowConfirmDialogWhenChangeOrg", false);//主业务组织改变时，不用弹出提示界面
-            if (openParamAction != null) openParamAction(openParam);
+            openParamAction?.Invoke(openParam);
 
             //插件
             List<AbstractDynamicFormPlugIn> plugs = form.CreateFormPlugIns();
