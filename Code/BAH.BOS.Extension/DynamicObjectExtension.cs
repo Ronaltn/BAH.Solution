@@ -1,4 +1,5 @@
 ﻿using Kingdee.BOS.Core;
+using Kingdee.BOS.Core.Const;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.Metadata;
 using Kingdee.BOS.Core.Metadata.EntityElement;
@@ -147,12 +148,12 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static object PkId(this DynamicObject dataObject)
         {
-            return dataObject.Property<object>("Id");
+            return dataObject.Property<object>(BOSConst.CST_KeyProperty);
         }//end method
 
         public static T PkId<T>(this DynamicObject dataObject)
         {
-            return dataObject.Property<T>("Id");
+            return dataObject.Property<T>(BOSConst.CST_KeyProperty);
         }//end method
 
         public static object MasterId(this DynamicObject dataObject)
