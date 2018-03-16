@@ -1,4 +1,4 @@
-﻿using BAH.BOS.Core.BillStatus;
+﻿using BAH.BOS.Core.Const.BillStatus;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.DynamicForm.PlugIn;
 using Kingdee.BOS.Core.DynamicForm.PlugIn.Args;

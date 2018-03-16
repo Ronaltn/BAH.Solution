@@ -263,9 +263,14 @@ namespace Kingdee.BOS.Orm.DataEntity
             return new DynamicObject[] { dataObject }.LoadFromCache(ctx, formId, selector, fieldKeys).FirstOrDefault();
         }
 
-        public static void Append(this DynamicObject dataObject, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        public static DynamicObject Append(this DynamicObject dataObject, string propertyName, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
         {
-            new DynamicObject[] { dataObject }.Append(loader, selector);
+            return new DynamicObject[] { dataObject }.Append(propertyName, loader, selector).FirstOrDefault();
+        }
+
+        public static DynamicObject Append(this DynamicObject dataObject, BaseDataField field, string keyName, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        {
+            return new DynamicObject[] { dataObject }.Append(field, keyName, loader, selector).FirstOrDefault();
         }
 
         public static IOperationResult Draft(this DynamicObject dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)

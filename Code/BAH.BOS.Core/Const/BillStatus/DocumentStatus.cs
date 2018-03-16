@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BAH.BOS.Pattern;
 
-namespace BAH.BOS.Core.BillStatus
+namespace BAH.BOS.Core.Const.BillStatus
 {
     /// <summary>
     /// 常用的单据状态。

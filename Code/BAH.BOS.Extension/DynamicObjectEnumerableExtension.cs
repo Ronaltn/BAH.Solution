@@ -2,6 +2,7 @@
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.Interaction;
 using Kingdee.BOS.Core.Metadata;
+using Kingdee.BOS.Core.Metadata.FieldElement;
 using Kingdee.BOS.Orm.Metadata.DataEntity;
 using Kingdee.BOS.ServiceHelper;
 using Kingdee.BOS.Util;
@@ -84,17 +85,23 @@ namespace Kingdee.BOS.Orm.DataEntity
             return LoadFromCache(dataObject, ctx, businessInfo.GetDynamicObjectType(), selector);
         }//end method
 
-        public static void Append(this IEnumerable<DynamicObject> dataObject, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        public static DynamicObject[] Append(this IEnumerable<DynamicObject> dataObject, string propertyName, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
         {
-            var bag = loader(dataObject);
-            dataObject.Join(bag,
-                left => selector != null ? selector(left) : left.PkId(),
-                right => selector != null ? selector(right) : right.PkId(),
-                (left, right) =>
-                {
-                    left = right;
-                    return left;
-                }).ToArray();
+            var bag = loader(dataObject.Select(data => data.Property<DynamicObject>(propertyName)).ToArray());
+            return dataObject.Join(bag,
+                                   left => selector != null ? selector(left.Property<DynamicObject>(propertyName)) : left.Property<DynamicObject>(propertyName).PkId(),
+                                   right => selector != null ? selector(right) : right.PkId(),
+                                   (left, right) =>
+                                   {
+                                       left[propertyName] = right;
+                                       return left;
+                                   }).ToArray();
+        }//end method
+
+        public static DynamicObject[] Append(this IEnumerable<DynamicObject> dataObject, BaseDataField field, string keyName, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        {
+            var propertyName = field.RefProperties.Where(p => p.Key.EqualsIgnoreCase(keyName)).FirstOrDefault().PropertyName;
+            return Append(dataObject, propertyName, loader, selector);
         }//end method
 
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)

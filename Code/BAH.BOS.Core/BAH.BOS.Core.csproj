@@ -45,9 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BillStatusConstant.cs" />
-    <Compile Include="BillStatus\DocumentStatus.cs" />
-    <Compile Include="BillStatus\LogicStatus.cs" />
+    <Compile Include="Const\BillStatus\DocumentStatus.cs" />
+    <Compile Include="Const\BillStatus\LogicStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Const\Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
