@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="BeginSetStatusTransactionArgsExtension.cs" />
     <Compile Include="BusinessInfoExtension.cs" />
+    <Compile Include="FilterSchemeExtension.cs" />
     <Compile Include="FormMetadataExtension.cs" />
     <Compile Include="IBillViewExtension.cs" />
     <Compile Include="IOperationResultExtension.cs" />
