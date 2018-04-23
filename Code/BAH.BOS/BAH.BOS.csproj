@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractServiceFactory.cs" />
+    <Compile Include="ModelServiceFactory.cs" />
     <Compile Include="Json\LongDateConverter.cs" />
     <Compile Include="Json\ShortDateConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

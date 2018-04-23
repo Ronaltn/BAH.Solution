@@ -1,4 +1,5 @@
-﻿using Kingdee.BOS;
+﻿using BAH.BOS.Pattern;
+using Kingdee.BOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Text;
 namespace BAH.BOS
 {
     /// <summary>
-    /// 抽象服务工厂。
+    /// 模型服务工厂。
     /// </summary>
-    public abstract class AbstractServiceFactory
+    public class ModelServiceFactory : Singleton<ModelServiceFactory>
     {
         #region 私有域
 
@@ -83,7 +84,7 @@ namespace BAH.BOS
         /// </summary>
         protected void InitlizeMapServer()
         {
-            if(notRegistered)
+            if (notRegistered)
             {
                 this.RegisterService();
             }//end if
@@ -91,9 +92,12 @@ namespace BAH.BOS
         }
 
         /// <summary>
-        /// 注册服务抽象方法。
+        /// 注册服务虚方法。
         /// </summary>
-        public abstract void RegisterService();
+        public virtual void RegisterService()
+        {
+            //DO NOTHING
+        }
 
         #endregion
 
