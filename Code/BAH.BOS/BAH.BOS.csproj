@@ -49,11 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelServiceFactory.cs" />
+    <Compile Include="AbstractServiceFactory.cs" />
     <Compile Include="Json\LongDateConverter.cs" />
     <Compile Include="Json\ShortDateConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pattern\Singleton.cs" />
+    <Compile Include="SingletonServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

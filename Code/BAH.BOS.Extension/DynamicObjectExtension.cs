@@ -335,5 +335,33 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         #endregion
 
+        #region 个性方法
+
+        /// <summary>
+        /// 向上钻去实体属性Key存在的动态数据对象。
+        /// </summary>
+        /// <param name="dataObject">动态数据对象。</param>
+        /// <returns>返回钻取的数据包。</returns>
+        public static DynamicObject Drill(this DynamicObject dataObject)
+        {
+            if (dataObject == null) return null;
+            return dataObject.Parent == null ? dataObject : dataObject.Parent.AsType<DynamicObject>().Drill();
+        }
+
+
+        /// <summary>
+        /// 向上钻去实体属性Key存在的动态数据对象。
+        /// </summary>
+        /// <param name="dataObject">动态数据对象。</param>
+        /// <param name="propertyName">实体属性Key。</param>
+        /// <returns>返回钻取的数据包。</returns>
+        public static DynamicObject Drill(this DynamicObject dataObject, string propertyName)
+        {
+            if (dataObject == null) return null;
+            return dataObject.DynamicObjectType.Properties.ContainsKey(propertyName) ? dataObject : dataObject.Parent.AsType<DynamicObject>().Drill(propertyName);
+        }
+
+        #endregion
+
     }//end class
 }//end namespace

@@ -10,7 +10,7 @@ namespace BAH.BOS
     /// <summary>
     /// 模型服务工厂。
     /// </summary>
-    public class ModelServiceFactory : Singleton<ModelServiceFactory>
+    public abstract class AbstractServiceFactory
     {
         #region 私有域
 
@@ -82,7 +82,7 @@ namespace BAH.BOS
         /// <summary>
         /// 初始化服务容器。
         /// </summary>
-        protected void InitlizeMapServer()
+        protected virtual void InitlizeMapServer()
         {
             if (notRegistered)
             {
@@ -94,10 +94,7 @@ namespace BAH.BOS
         /// <summary>
         /// 注册服务虚方法。
         /// </summary>
-        public virtual void RegisterService()
-        {
-            //DO NOTHING
-        }
+        public abstract void RegisterService();
 
         #endregion
 
