@@ -9,7 +9,16 @@ namespace System
     {
         public static string ToTrimEndZeroString(this decimal d)
         {
-            return d.ToString().TrimEnd(new char[] { '0', '.' });
+            var i = (int)d;
+            if(d == i)
+            {
+                return i.ToString();
+            }
+            else
+            {
+                var tail = d.ToString().Adaptive(s => s.Substring(s.IndexOf('.') + 1)).TrimEnd('0');
+                return string.Concat(i.ToString(), ".", tail);
+            }
         }
     }
 }
