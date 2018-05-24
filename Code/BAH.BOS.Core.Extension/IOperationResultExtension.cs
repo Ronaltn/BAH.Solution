@@ -58,6 +58,23 @@ namespace Kingdee.BOS.Core.DynamicForm
             throw new KDBusinessException(string.Empty, message);
         }//end static method
 
+        public static void ThrowWhenUnSuccess(this IOperationResult result, IOperationResult parent, Func<IOperationResult, string> predicate)
+        {
+            if (result.IsSuccess) return;
+            if (result.InteractionContext != null && result.InteractionContext.Option.GetInteractionFlag().Any())
+            {
+                parent.InteractionContext = result.InteractionContext;
+                parent.Sponsor = result.Sponsor;
+            }//end if
+
+            ThrowWhenUnSuccess(result, predicate);
+        }//end static method
+
+        public static void ThrowWhenUnSuccess(this IOperationResult result)
+        {
+            ThrowWhenUnSuccess(result, op => op.GetResultMessage());
+        }//end static method
+
         public static IOperationResult RepairPKValue(this IOperationResult result)
         {
             result.OperateResult
