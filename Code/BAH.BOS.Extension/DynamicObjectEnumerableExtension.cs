@@ -87,7 +87,8 @@ namespace Kingdee.BOS.Orm.DataEntity
 
         public static DynamicObject[] Append(this IEnumerable<DynamicObject> dataObject, string propertyName, Func<IEnumerable<DynamicObject>, DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
         {
-            var bag = loader(dataObject.Select(data => data.Property<DynamicObject>(propertyName)).ToArray());
+            var objs = dataObject.Select(data => data.Property<DynamicObject>(propertyName)).Where(data => data != null).ToArray();
+            var bag = objs.Any() ? loader(objs) : new DynamicObject[0];
             return dataObject.Join(bag,
                                    left => selector != null ? selector(left.Property<DynamicObject>(propertyName)) : left.Property<DynamicObject>(propertyName).PkId(),
                                    right => selector != null ? selector(right) : right.PkId(),
@@ -103,6 +104,20 @@ namespace Kingdee.BOS.Orm.DataEntity
             var propertyName = field.RefProperties.Where(p => p.Key.EqualsIgnoreCase(keyName)).FirstOrDefault().PropertyName;
             return Append(dataObject, propertyName, loader, selector);
         }//end method
+
+        public static DynamicObject[] Mend(this IEnumerable<DynamicObject> dataObject, BaseDataField field, Func<object[], DynamicObject[]> loader, Func<DynamicObject, object> selector = null)
+        {
+            var ids = dataObject.Select(data => data.FieldRefIdProperty<object>(field)).Where(id => id != null).Distinct().ToArray();
+            var bag = ids.Any() ? loader(ids) : new DynamicObject[0];
+            return dataObject.Join(bag,
+                                   left => left.FieldRefIdProperty<object>(field),
+                                   right => selector != null ? selector(right) : right.PkId(),
+                                   (left, right) =>
+                                   {
+                                       left[field.PropertyName] = right;
+                                       return left;
+                                   }).ToArray();
+        }
 
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
