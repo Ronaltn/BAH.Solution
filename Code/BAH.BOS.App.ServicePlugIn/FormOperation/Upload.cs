@@ -18,8 +18,11 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
         public override void OnPrepareOperationServiceOption(OnPrepareOperationServiceEventArgs e)
         {
             base.OnPrepareOperationServiceOption(e);
-            this.Option.SetIgnoreWarning(true);
-            this.Option.SetIgnoreInteractionFlag(true);
+            if (this.Option == null)
+            {
+                this.Option.SetIgnoreWarning(true);
+                this.Option.SetIgnoreInteractionFlag(true);
+            }//end if
         }
 
         public override void OnPreparePropertys(PreparePropertysEventArgs e)
@@ -46,7 +49,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.Cancel = true;
                         e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeResult(result);
+                        this.OperationResult.MergeUnSuccessResult(result);
                     }//end if
                 }//end if
             }
@@ -64,7 +67,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.Cancel = true;
                         e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeResult(result);
+                        this.OperationResult.MergeUnSuccessResult(result);
                     }//end if
                 }//end if
             }
@@ -84,7 +87,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                 dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
                 dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
-                    if (!result.IsSuccess) this.OperationResult.MergeResult(result);
+                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
                 });
 
                 //保存
@@ -95,7 +98,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.Cancel = true;
                         e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeResult(result);
+                        this.OperationResult.MergeUnSuccessResult(result);
                     }//end if
                 });
             }//end if
@@ -108,13 +111,13 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             //提交
             e.DataEntitys.Submit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
             {
-                if (!result.IsSuccess) this.OperationResult.MergeResult(result);
+                if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
             }).ThrowWhenUnSuccess(result => result.GetResultMessage());
 
             //审核
             e.DataEntitys.Audit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
             {
-                if (!result.IsSuccess) this.OperationResult.MergeResult(result);
+                if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
             }).ThrowWhenUnSuccess(result => result.GetResultMessage());
         }
 

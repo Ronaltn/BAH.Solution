@@ -87,5 +87,14 @@ namespace Kingdee.BOS.Core.DynamicForm
             return result;
         }//end static method
 
+        public static void MergeUnSuccessResult(this IOperationResult result, IOperationResult other)
+        {
+            var collection = other.OperateResult.GetFailResult();
+            foreach (var item in collection)
+            {
+                result.OperateResult.Add(item);
+            }//end foreach
+        }//end static method
+
     }//end static class
 }//end namespace

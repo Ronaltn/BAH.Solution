@@ -10,7 +10,7 @@ namespace BAH.BOS.Pattern
     /// 单例基类。
     /// </summary>
     /// <typeparam name="T">实例类型。</typeparam>
-    public class Singleton<T> where T : class, new()
+    public class Singleton<T> : ISingleton<T> where T : class, new()
     {
         private static readonly T instance = new T();
 
