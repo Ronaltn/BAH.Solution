@@ -31,7 +31,7 @@ namespace Kingdee.BOS.Core.DynamicForm
             StringBuilder msg = new StringBuilder();
             if (result.InteractionContext != null && result.InteractionContext.Option.GetInteractionFlag().Any())
             {
-                msg.AppendLine("因交互性提示而操作中断！");
+                msg.AppendLine(result.InteractionContext.SimpleMessage.IsNullOrEmptyOrWhiteSpace() ? "因交互性提示而操作中断！" : result.InteractionContext.SimpleMessage);
             }
             /*
             foreach (var error in result.ValidationErrors)
@@ -94,6 +94,24 @@ namespace Kingdee.BOS.Core.DynamicForm
             {
                 result.OperateResult.Add(item);
             }//end foreach
+        }//end static method
+
+        public static void ThrowWhenInteraction(this IOperationResult result, bool interactive = true)
+        {
+            if (result != null && result.InteractionContext != null)
+            {
+                throw new KDInteractionException(result.InteractionContext.Option, result.Sponsor).Adaptive(ie =>
+                {
+                    ie.InteractionContext.Context = result.InteractionContext.Context;
+                    ie.InteractionContext.DataEntities = result.InteractionContext.DataEntities;
+                    ie.InteractionContext.FormShowParameter = result.InteractionContext.FormShowParameter;
+                    ie.InteractionContext.InteractionFormId = result.InteractionContext.InteractionFormId;
+                    ie.InteractionContext.IsInteractive = interactive;
+                    ie.InteractionContext.K3DisplayerModel = result.InteractionContext.K3DisplayerModel;
+                    ie.InteractionContext.SimpleMessage = result.InteractionContext.SimpleMessage;
+                    ie.InteractionContext.SupportMobile = result.InteractionContext.SupportMobile;
+                });
+            }//end if
         }//end static method
 
     }//end static class
