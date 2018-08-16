@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BAH.BOS.App.ServicePlugIn.FormOperation
+namespace BAH.BOS.Core.Const.FormOperation
 {
     /// <summary>
     /// 上传操作相关选项。
