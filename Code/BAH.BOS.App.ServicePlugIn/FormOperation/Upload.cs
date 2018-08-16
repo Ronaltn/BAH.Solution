@@ -84,23 +84,33 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                                                         .ToArray();
 
                 //暂存
-                dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
-                dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() || 
+                                                               number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString())))
                 {
-                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                });
+                    dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
+                    dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                    {
+                        if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
+                    });
+                }//end if
 
                 //保存
-                reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Created()));
-                dataEntities.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                                                               number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
+                                                               number.EqualsIgnoreCase(FormOperationEnum.Save.ToString())))
                 {
-                    if (!result.IsSuccess)
+                    reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Created()));
+                    dataEntities.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
-                        e.Cancel = true;
-                        e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeUnSuccessResult(result);
-                    }//end if
-                });
+                        if (!result.IsSuccess)
+                        {
+                            e.Cancel = true;
+                            e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
+                            this.OperationResult.MergeUnSuccessResult(result);
+                        }//end if
+                    });
+                }//end if
+
             }//end if
         }//end method
 
@@ -109,17 +119,31 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             base.BeginOperationTransaction(e);
 
             //提交
-            e.DataEntitys.Submit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+            if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString())))
             {
-                if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-            }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                e.DataEntitys.Submit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                {
+                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
+                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+            }//end if
 
             //审核
-            e.DataEntitys.Audit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+            if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
+                                                           number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
             {
-                if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-            }).ThrowWhenUnSuccess(result => result.GetResultMessage());
-        }
+                e.DataEntitys.Audit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                {
+                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
+                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+            }//end if
+
+        }//end method
 
     }//end class
 }//end namespace
