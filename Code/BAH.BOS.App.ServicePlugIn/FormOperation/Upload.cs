@@ -85,8 +85,11 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                                                         .ToArray();
 
                 //暂存
-                if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() || 
-                                                              number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString())))
+                if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
                 {
                     dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
                     dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
@@ -97,8 +100,9 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
 
                 //保存
                 if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
-                                                              number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
-                                                              number.EqualsIgnoreCase(FormOperationEnum.Save.ToString())))
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
+                                                                        number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
                 {
                     reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Created()));
                     dataEntities.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
@@ -121,9 +125,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
 
             //提交
             if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString())))
+                                                                    number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
+                                                                    number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
             {
                 e.DataEntitys.Submit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
@@ -133,9 +136,6 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
 
             //审核
             if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Draft.ToString()) ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
-                                                          number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
                                                           number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
             {
                 e.DataEntitys.Audit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
