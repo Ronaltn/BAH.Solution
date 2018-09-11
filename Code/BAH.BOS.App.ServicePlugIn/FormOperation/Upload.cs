@@ -91,7 +91,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                                                                         number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
                                                                         number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
                 {
-                    dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
+                    if (!this.Option.GetOutOfTransaction()) dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
                     dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
                         if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
@@ -99,12 +99,13 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                 }//end if
 
                 //保存
-                if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                if (this.Option.GetOutOfTransaction() &&
+                    this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
                                                                         number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
                                                                         number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
                                                                         number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
                 {
-                    reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Created()));
+                    reCreatedDataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.ReCreated()));
                     dataEntities.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
                         if (!result.IsSuccess)
@@ -122,6 +123,19 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
         public override void BeginOperationTransaction(BeginOperationTransactionArgs e)
         {
             base.BeginOperationTransaction(e);
+
+            //保存
+            if (!this.Option.GetOutOfTransaction() && 
+                this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+                                                                    number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
+                                                                    number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
+                                                                    number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
+            {
+                e.DataEntitys.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                {
+                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
+                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+            }//end if
 
             //提交
             if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||

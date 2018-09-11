@@ -32,5 +32,27 @@ namespace BAH.BOS.Core.Const.FormOperation
         {
             option.SetVariableValue(UploadOption.Instance.CutoffOperation(), number);
         }
+
+        /// <summary>
+        /// 获取是否在事务外执行的逻辑值。
+        /// </summary>
+        /// <param name="option">选项对象。</param>
+        /// <returns>返回逻辑值。</returns>
+        public static bool GetOutOfTransaction(this OperateOption option)
+        {
+            bool logic = default(bool);
+            option.TryGetVariableValue<bool>(UploadOption.Instance.OutOfTransaction(), out logic);
+            return logic;
+        }
+
+        /// <summary>
+        /// 设置是否在事务外执行的逻辑值。
+        /// </summary>
+        /// <param name="option">选项对象。</param>
+        /// <returns>返回逻辑值。</returns>
+        public static void SetOutOfTransaction(this OperateOption option,bool logic)
+        {
+            option.SetVariableValue(UploadOption.Instance.OutOfTransaction(), logic);
+        }
     }
 }

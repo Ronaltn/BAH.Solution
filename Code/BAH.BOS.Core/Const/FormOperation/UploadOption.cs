@@ -20,5 +20,14 @@ namespace BAH.BOS.Core.Const.FormOperation
             return "_BAH_Cutoff_Operation_";
         }
 
+        /// <summary>
+        /// 在事务外执行。
+        /// </summary>
+        /// <returns>返回参数键。</returns>
+        public string OutOfTransaction()
+        {
+            return "_BAH_OutOfTransaction_";
+        }
+
     }//end class
 }//end namespace
