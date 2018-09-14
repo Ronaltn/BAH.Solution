@@ -204,9 +204,14 @@ namespace Kingdee.BOS.Orm.DataEntity
             return FieldRefProperty<string>(dataObject, field, field.NumberProperty.Key);
         }//end method
 
+        public static LocaleValue BDName(this DynamicObject dataObject)
+        {
+            return dataObject.Property<LocaleValue>("Name");
+        }
+
         public static string BDName(this DynamicObject dataObject, int localeId)
         {
-            return dataObject.Property<LocaleValue>("Name").Value(localeId);
+            return BDName(dataObject).Value(localeId);
         }//end method
 
         public static string BDName(this DynamicObject dataObject, Context ctx)
