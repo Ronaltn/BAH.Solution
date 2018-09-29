@@ -125,7 +125,9 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             base.BeginOperationTransaction(e);
 
             //保存
-            if (!this.Option.GetOutOfTransaction() && 
+            if (!e.CancelOperation &&
+                !e.CancelOperation &&
+                !this.Option.GetOutOfTransaction() && 
                 this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
                                                                     number.EqualsIgnoreCase(FormOperationEnum.Save.ToString()) ||
                                                                     number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
@@ -133,29 +135,51 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             {
                 e.DataEntitys.Save(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
-                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                    if (!result.IsSuccess)
+                    {
+                        e.CancelFormService = true;
+                        e.CancelOperation = true;
+                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.ThrowWhenUnSuccess();
+                    }//end if
+                });
             }//end if
 
             //提交
-            if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+            if (!e.CancelOperation &&
+                !e.CancelOperation && 
+                this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
                                                                     number.EqualsIgnoreCase(FormOperationEnum.Submit.ToString()) ||
                                                                     number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
             {
                 e.DataEntitys.Submit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
-                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                    if (!result.IsSuccess)
+                    {
+                        e.CancelFormService = true;
+                        e.CancelOperation = true;
+                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.ThrowWhenUnSuccess();
+                    }//end if
+                });
             }//end if
 
             //审核
-            if (this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
+            if (!e.CancelOperation &&
+                !e.CancelOperation && 
+                this.Option.GetCutoffOperation().Adaptive(number => number.IsNullOrEmptyOrWhiteSpace() ||
                                                           number.EqualsIgnoreCase(FormOperationEnum.Audit.ToString())))
             {
                 e.DataEntitys.Audit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                 {
-                    if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                    if (!result.IsSuccess)
+                    {
+                        e.CancelFormService = true;
+                        e.CancelOperation = true;
+                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.ThrowWhenUnSuccess();
+                    }//end if
+                });
             }//end if
 
         }//end method

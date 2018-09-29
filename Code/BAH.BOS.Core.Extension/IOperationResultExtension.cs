@@ -94,6 +94,7 @@ namespace Kingdee.BOS.Core.DynamicForm
             {
                 result.OperateResult.Add(item);
             }//end foreach
+            if (collection.Any()) result.IsSuccess = false;
         }//end static method
 
         public static void ThrowWhenInteraction(this IOperationResult result, bool interactive = true)

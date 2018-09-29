@@ -38,6 +38,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
             var documentStatusField = this.BusinessInfo.GetField(this.BusinessInfo.GetForm().DocumentStatusFieldKey).AsType<BillStatusField>();
 
             //如果数据状态是审核中，需先执行撤销操作。
+            if (!e.CancelFormService && !e.CancelOperation)
             {
                 var dataEntities = e.DataEntitys
                                     .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(DocumentStatus.Instance.Approving()))
@@ -46,12 +47,20 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                 {
                     dataEntities.CancelAssign(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
-                        if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                    }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                        if (!result.IsSuccess)
+                        {
+                            e.CancelFormService = true;
+                            e.CancelOperation = true;
+                            this.OperationResult.MergeUnSuccessResult(result);
+                            this.OperationResult.ThrowWhenUnSuccess();
+                        }//end if
+                    });
                 }//end if
-            }
+
+            }//end if
 
             //如果数据状态是已审核，需先执行反审核操作。
+            if (!e.CancelFormService && !e.CancelOperation)
             {
                 var dataEntities = e.DataEntitys
                                     .Where(data => data.FieldProperty<string>(documentStatusField).EqualsIgnoreCase(DocumentStatus.Instance.Approved()))
@@ -60,17 +69,34 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                 {
                     dataEntities.UnAudit(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
-                        if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-                    }).ThrowWhenUnSuccess(result => result.GetResultMessage());
+                        if (!result.IsSuccess)
+                        {
+                            e.CancelFormService = true;
+                            e.CancelOperation = true;
+                            this.OperationResult.MergeUnSuccessResult(result);
+                            this.OperationResult.ThrowWhenUnSuccess();
+                        }//end if
+                    });
                 }//end if
-            }
+
+            }//end if
 
             //删除
-            e.DataEntitys.Delete(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+            if (!e.CancelFormService && !e.CancelOperation)
             {
-                if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
-            }).ThrowWhenUnSuccess(result => result.GetResultMessage());
-        }
+                e.DataEntitys.Delete(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
+                {
+                    if (!result.IsSuccess)
+                    {
+                        e.CancelFormService = true;
+                        e.CancelOperation = true;
+                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.ThrowWhenUnSuccess();
+                    }//end if
+                });
+            }//end if
+
+        }//end method
 
     }//end class
 }//end namespace
