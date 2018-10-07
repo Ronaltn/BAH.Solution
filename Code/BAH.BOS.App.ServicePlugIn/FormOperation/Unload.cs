@@ -1,4 +1,5 @@
 ﻿using BAH.BOS.Core.Const.BillStatus;
+using BAH.BOS.Core.Const.FormOperation;
 using Kingdee.BOS.Core.DynamicForm;
 using Kingdee.BOS.Core.DynamicForm.PlugIn;
 using Kingdee.BOS.Core.DynamicForm.PlugIn.Args;
@@ -51,8 +52,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                         {
                             e.CancelFormService = true;
                             e.CancelOperation = true;
-                            this.OperationResult.MergeUnSuccessResult(result);
-                            this.OperationResult.ThrowWhenUnSuccess();
+                            this.OperationResult.MergeResult(result);
+                            if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                         }//end if
                     });
                 }//end if
@@ -73,8 +74,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                         {
                             e.CancelFormService = true;
                             e.CancelOperation = true;
-                            this.OperationResult.MergeUnSuccessResult(result);
-                            this.OperationResult.ThrowWhenUnSuccess();
+                            this.OperationResult.MergeResult(result);
+                            if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                         }//end if
                     });
                 }//end if
@@ -90,8 +91,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.CancelFormService = true;
                         e.CancelOperation = true;
-                        this.OperationResult.MergeUnSuccessResult(result);
-                        this.OperationResult.ThrowWhenUnSuccess();
+                        this.OperationResult.MergeResult(result);
+                        if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                     }//end if
                 });
             }//end if

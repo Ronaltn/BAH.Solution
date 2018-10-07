@@ -50,9 +50,31 @@ namespace BAH.BOS.Core.Const.FormOperation
         /// </summary>
         /// <param name="option">选项对象。</param>
         /// <returns>返回逻辑值。</returns>
-        public static void SetOutOfTransaction(this OperateOption option,bool logic)
+        public static void SetOutOfTransaction(this OperateOption option, bool logic)
         {
             option.SetVariableValue(UploadOption.Instance.OutOfTransaction(), logic);
+        }
+
+        /// <summary>
+        /// 获取失败时抛出异常的逻辑值。
+        /// </summary>
+        /// <param name="option">选项对象。</param>
+        /// <returns>返回逻辑值。</returns>
+        public static bool GetThrowWhenUnSuccess(this OperateOption option)
+        {
+            bool logic = true;
+            option.TryGetVariableValue(UploadOption.Instance.ThrowWhenUnSuccess(), out logic);
+            return logic;
+        }
+
+        /// <summary>
+        /// 设置失败时抛出异常的逻辑值。
+        /// </summary>
+        /// <param name="option">选项对象。</param>
+        /// <returns>返回逻辑值。</returns>
+        public static void SetThrowWhenUnSuccess(this OperateOption option, bool logic)
+        {
+            option.SetVariableValue(UploadOption.Instance.ThrowWhenUnSuccess(), logic);
         }
     }
 }

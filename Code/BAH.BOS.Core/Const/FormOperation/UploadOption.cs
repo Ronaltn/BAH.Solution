@@ -29,5 +29,14 @@ namespace BAH.BOS.Core.Const.FormOperation
             return "_BAH_OutOfTransaction_";
         }
 
+        /// <summary>
+        /// 失败时抛出异常。
+        /// </summary>
+        /// <returns>返回参数键。</returns>
+        public string ThrowWhenUnSuccess()
+        {
+            return "_BAH_ThrowWhenUnSuccess_";
+        }
+
     }//end class
 }//end namespace

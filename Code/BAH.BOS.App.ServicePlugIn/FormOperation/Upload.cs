@@ -50,7 +50,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.Cancel = true;
                         e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.MergeResult(result);
                     }//end if
                 }//end if
             }
@@ -68,7 +68,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.Cancel = true;
                         e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                        this.OperationResult.MergeUnSuccessResult(result);
+                        this.OperationResult.MergeResult(result);
                     }//end if
                 }//end if
             }
@@ -94,7 +94,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     if (!this.Option.GetOutOfTransaction()) dataEntities.ForEach(data => documentStatusField.DynamicProperty.SetValue(data, DocumentStatus.Instance.Draft()));
                     dataEntities.Draft(this.Context, this.BusinessInfo, this.Option).Adaptive(result =>
                     {
-                        if (!result.IsSuccess) this.OperationResult.MergeUnSuccessResult(result);
+                        if (!result.IsSuccess) this.OperationResult.MergeResult(result);
                     });
                 }//end if
 
@@ -112,7 +112,7 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                         {
                             e.Cancel = true;
                             e.CancelMessage = string.Concat(e.CancelMessage, result.GetResultMessage());
-                            this.OperationResult.MergeUnSuccessResult(result);
+                            this.OperationResult.MergeResult(result);
                         }//end if
                     });
                 }//end if
@@ -139,8 +139,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.CancelFormService = true;
                         e.CancelOperation = true;
-                        this.OperationResult.MergeUnSuccessResult(result);
-                        this.OperationResult.ThrowWhenUnSuccess();
+                        this.OperationResult.MergeResult(result);
+                        if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                     }//end if
                 });
             }//end if
@@ -158,8 +158,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.CancelFormService = true;
                         e.CancelOperation = true;
-                        this.OperationResult.MergeUnSuccessResult(result);
-                        this.OperationResult.ThrowWhenUnSuccess();
+                        this.OperationResult.MergeResult(result);
+                        if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                     }//end if
                 });
             }//end if
@@ -176,8 +176,8 @@ namespace BAH.BOS.App.ServicePlugIn.FormOperation
                     {
                         e.CancelFormService = true;
                         e.CancelOperation = true;
-                        this.OperationResult.MergeUnSuccessResult(result);
-                        this.OperationResult.ThrowWhenUnSuccess();
+                        this.OperationResult.MergeResult(result);
+                        if (this.Option.GetThrowWhenUnSuccess()) this.OperationResult.ThrowWhenUnSuccess(false);
                     }//end if
                 });
             }//end if

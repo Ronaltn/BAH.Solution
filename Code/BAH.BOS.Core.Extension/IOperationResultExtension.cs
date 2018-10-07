@@ -1,4 +1,6 @@
-﻿using Kingdee.BOS.Core.Interaction;
+﻿using Kingdee.BOS.Core.Const;
+using Kingdee.BOS.Core.Interaction;
+using Kingdee.BOS.Orm;
 using Kingdee.BOS.Util;
 using System;
 using System.Collections.Generic;
@@ -25,13 +27,15 @@ namespace Kingdee.BOS.Core.DynamicForm
             return msg.ToString();
         }//end static method
 
-        public static string GetResultMessage(this IOperationResult result)
+        public static string GetResultMessage(this IOperationResult result, string separator = "\r\n")
         {
             result.MergeValidateErrors();
             StringBuilder msg = new StringBuilder();
             if (result.InteractionContext != null && result.InteractionContext.Option.GetInteractionFlag().Any())
             {
-                msg.AppendLine(result.InteractionContext.SimpleMessage.IsNullOrEmptyOrWhiteSpace() ? "因交互性提示而操作中断！" : result.InteractionContext.SimpleMessage);
+                var text = result.InteractionContext.SimpleMessage.IsNullOrEmptyOrWhiteSpace() ? "因交互性提示而操作中断！" : result.InteractionContext.SimpleMessage;
+                msg.Append(text);
+                msg.Append(separator);
             }
             /*
             foreach (var error in result.ValidationErrors)
@@ -45,9 +49,19 @@ namespace Kingdee.BOS.Core.DynamicForm
             */
             foreach (var operate in result.OperateResult)
             {
-                if (!operate.Message.IsNullOrEmptyOrWhiteSpace()) msg.AppendLine(operate.Message);
+                if (!operate.Message.IsNullOrEmptyOrWhiteSpace())
+                {
+                    msg.Append(operate.Message);
+                    msg.Append(separator);
+                }//end if
             }
             return msg.ToString();
+        }//end static method
+
+        public static void MergeFromOption(this IOperationResult result, OperateOption option)
+        {
+            var inner = option.GetVariableValue<IOperationResult>(BOSConst.CST_KEY_OperationResultKey);
+            if (inner != null) result.MergeResult(inner);
         }//end static method
 
         public static void ThrowWhenUnSuccess(this IOperationResult result, Func<IOperationResult, string> predicate)
@@ -70,31 +84,9 @@ namespace Kingdee.BOS.Core.DynamicForm
             ThrowWhenUnSuccess(result, predicate);
         }//end static method
 
-        public static void ThrowWhenUnSuccess(this IOperationResult result)
+        public static void ThrowWhenUnSuccess(this IOperationResult result, bool needMessage = true)
         {
-            ThrowWhenUnSuccess(result, op => op.GetResultMessage());
-        }//end static method
-
-        public static IOperationResult RepairPKValue(this IOperationResult result)
-        {
-            result.OperateResult
-                  .Where(item => item.PKValueIsNullOrEmpty)
-                  .Join(result.MapSuccessDataEnityIndex, left => left.DataEntityIndex, right => right.Value, (left, right) =>
-                  {
-                      left.PKValue = right.Key;
-                      return left;
-                  }).ToArray();
-            return result;
-        }//end static method
-
-        public static void MergeUnSuccessResult(this IOperationResult result, IOperationResult other)
-        {
-            var collection = other.OperateResult.GetFailResult();
-            foreach (var item in collection)
-            {
-                result.OperateResult.Add(item);
-            }//end foreach
-            if (collection.Any()) result.IsSuccess = false;
+            ThrowWhenUnSuccess(result, op => needMessage ? op.GetResultMessage() : string.Empty);
         }//end static method
 
         public static void ThrowWhenInteraction(this IOperationResult result, bool interactive = true)
@@ -113,6 +105,30 @@ namespace Kingdee.BOS.Core.DynamicForm
                     ie.InteractionContext.SupportMobile = result.InteractionContext.SupportMobile;
                 });
             }//end if
+        }//end static method
+
+        public static IOperationResult RepairPKValue(this IOperationResult result)
+        {
+            result.OperateResult
+                  .Where(item => item.PKValueIsNullOrEmpty)
+                  .Join(result.MapSuccessDataEnityIndex, left => left.DataEntityIndex, right => right.Value, (left, right) =>
+                  {
+                      left.PKValue = right.Key;
+                      return left;
+                  }).ToArray();
+            return result;
+        }//end static method
+
+        public static void RemoveSuccessResult(this IOperationResult result)
+        {
+            var success = result.OperateResult.GetSuccessResult();
+            foreach (var item in success) result.OperateResult.Remove(item);
+        }//end static method
+
+        public static void RemoveEmptyResult(this IOperationResult result)
+        {
+            var empty = result.OperateResult.Where(item => item.Message.IsNullOrEmptyOrWhiteSpace()).ToArray();
+            foreach (var item in empty) result.OperateResult.Remove(item);
         }//end static method
 
     }//end static class
