@@ -75,6 +75,11 @@
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.ServiceHelper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Kingdee.BOS.VerificationHelper, Version=7.1.675.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\bin\Kingdee.BOS.VerificationHelper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Kingdee.BOS.WebApi.ServicesStub">
       <HintPath>C:\Program Files (x86)\Kingdee\K3Cloud\WebSite\Bin\Kingdee.BOS.WebApi.ServicesStub.dll</HintPath>
       <Private>False</Private>

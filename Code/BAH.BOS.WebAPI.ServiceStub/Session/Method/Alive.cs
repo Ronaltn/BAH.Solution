@@ -1,4 +1,6 @@
 ﻿using Kingdee.BOS.ServiceFacade.KDServiceFx;
+using Kingdee.BOS.Util;
+using Kingdee.BOS.VerificationHelper.Verifiers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +18,30 @@ namespace BAH.BOS.WebAPI.ServiceStub.Session.Method
 
         }
 
-        public ServiceResult Invoke()
+        public ServiceResult Invoke(string featureId = "")
         {
-            return new ServiceResult<bool>
+            var result = new ServiceResult<bool>();
+
+            try
             {
-                Code = (int)ResultCode.Success,
-                Message = (this.KDContext.Session.AppContext != null).ToString(),
-                Data = this.KDContext.Session.AppContext != null
-            };
-        }
+                var ctx = this.KDContext.Session.AppContext;
+                if (!featureId.IsNullOrEmptyOrWhiteSpace() && ctx != null)
+                {
+                    FeatureVerifier.CheckFeature(ctx, featureId);
+                }//end if
+
+                result.Code = (int)ResultCode.Success;
+                result.Message = (ctx != null).ToString();
+                result.Data = ctx != null;
+            }
+            catch (Exception ex)
+            {
+                result.Code = (int)ResultCode.Fail;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }//end method
 
     }//end class
 }//end namespace
