@@ -1,5 +1,4 @@
-﻿using BAH.BOS.Core.Const.FormOperation;
-using Kingdee.BOS.Orm;
+﻿using Kingdee.BOS.Orm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +19,7 @@ namespace BAH.BOS.Core.Const.FormOperation
         public static string GetCutoffOperation(this OperateOption option)
         {
             string number = string.Empty;
-            option.TryGetVariableValue<string>(UploadOption.Instance.CutoffOperation(), out number);
+            option.TryGetVariableValue(UploadOption.Instance.CutoffOperation(), out number);
             return number;
         }
 
@@ -41,7 +40,7 @@ namespace BAH.BOS.Core.Const.FormOperation
         public static bool GetOutOfTransaction(this OperateOption option)
         {
             bool logic = default(bool);
-            option.TryGetVariableValue<bool>(UploadOption.Instance.OutOfTransaction(), out logic);
+            option.TryGetVariableValue(UploadOption.Instance.OutOfTransaction(), out logic);
             return logic;
         }
 
@@ -62,8 +61,11 @@ namespace BAH.BOS.Core.Const.FormOperation
         /// <returns>返回逻辑值。</returns>
         public static bool GetThrowWhenUnSuccess(this OperateOption option)
         {
-            bool logic = true;
-            option.TryGetVariableValue(UploadOption.Instance.ThrowWhenUnSuccess(), out logic);
+            bool logic = default(bool);
+            if (!option.TryGetVariableValue(UploadOption.Instance.ThrowWhenUnSuccess(), out logic))
+            {
+                logic = true;
+            }
             return logic;
         }
 
