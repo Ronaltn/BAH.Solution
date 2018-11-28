@@ -10,24 +10,8 @@ namespace BAH.BOS.WebAPI.ServiceStub.MC.Dto
     /// 数据中心输出结果。
     /// </summary>
     [JsonObject]
-    public class DataCenterInfoOutput
+    public class DataCenterInfoOutput : BaseDataOutput<string>
     {
-        /// <summary>
-        /// 主键。
-        /// </summary>
-        [JsonProperty]
-        public string Id { get; set; }
 
-        /// <summary>
-        /// 编码。
-        /// </summary>
-        [JsonProperty]
-        public string Number { get; set; }
-
-        /// <summary>
-        /// 名称。
-        /// </summary>
-        [JsonProperty]
-        public string Name { get; set; }
     }
 }

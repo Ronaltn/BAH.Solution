@@ -27,10 +27,13 @@ namespace BAH.BOS.WebAPI.ServiceStub.MC.Method
 
             try
             {
-                var infos = DataCenterService.GetDataCentersFromMC(string.Empty, Context.DataBaseCategory.Normal);
+                bool flag = DataCenterService.IsDeployAsPublicCloud(this.KDContext.Session.AppContext);
+                string host = flag ? this.KDContext.WebContext.Context.Request.Url.Host : string.Empty;
+
+                var infos = DataCenterService.GetDataCentersFromMC(string.Empty, Context.DataBaseCategory.Normal, string.Empty, host);
                 if (!featureId.IsNullOrEmptyOrWhiteSpace() && infos.Any())
                 {
-                    var ctx = default(Context);
+                    var ctx = this.KDContext.Session.AppContext;
                     ctx = ctx.CreateAdministratorFromCache(infos.First().Id);
                     FeatureVerifier.CheckFeature(ctx, featureId);
                 }//end if

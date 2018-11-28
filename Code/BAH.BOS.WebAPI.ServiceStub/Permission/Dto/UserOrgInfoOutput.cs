@@ -7,29 +7,11 @@ using System.Text;
 namespace BAH.BOS.WebAPI.ServiceStub.Permission.Dto
 {
     /// <summary>
-    /// 
+    /// 用户组织输出对象。
     /// </summary>
     [JsonObject]
-    public class UserOrgInfoOutput
+    public class UserOrgInfoOutput : BaseDataOutput<long>
     {
-        /// <summary>
-        /// 主键。
-        /// </summary>
-        [JsonProperty]
-        public long Id { get; set; }
-
-        /// <summary>
-        /// 编码。
-        /// </summary>
-        [JsonProperty]
-        public string Number { get; set; }
-
-
-        /// <summary>
-        /// 名称。
-        /// </summary>
-        [JsonProperty]
-        public string Name { get; set; }
 
     }//end class
 }//end namespace
