@@ -119,6 +119,20 @@ namespace Kingdee.BOS.Orm.DataEntity
                                    }).ToArray();
         }
 
+        public static DynamicObject[] Mend(this IEnumerable<DynamicObject> dataObject, BaseDataField field, Func<DynamicObject, object> selfSelector, Func<DynamicObject, object> loadSelector, Func<object[], DynamicObject[]> loader)
+        {
+            var traits = dataObject.Select(data => selfSelector(data)).Where(item => item != null).Distinct().ToArray();
+            var bag = traits.Any() ? loader(traits) : new DynamicObject[0];
+            return dataObject.Join(bag,
+                                   left => selfSelector(left),
+                                   right => loadSelector(right),
+                                   (left, right) =>
+                                   {
+                                       left[field.PropertyName] = right;
+                                       return left;
+                                   }).ToArray();
+        }
+
         public static IOperationResult Draft(this IEnumerable<DynamicObject> dataObject, Context ctx, BusinessInfo businessInfo, OperateOption option = null)
         {
             if (option == null) option = OperateOption.Create();
