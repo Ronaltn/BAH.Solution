@@ -27,6 +27,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             else if (typeof(T).Equals(typeof(DateTime?)))
             {
                 return dataObject[propertyName].Adaptive(datetime => datetime != null ? datetime.ToType<DateTime>() : default(DateTime?))
+                                               .Adaptive(datetime => datetime.HasValue && DateTime.Equals(datetime.Value, default(DateTime)) ? default(DateTime?) : datetime)
                                                .ToType<T>();
             }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
@@ -55,6 +56,7 @@ namespace Kingdee.BOS.Orm.DataEntity
             {
                 return field.DynamicProperty.GetValue(dataObject)
                             .Adaptive(datetime => datetime != null ? datetime.ToType<DateTime>() : default(DateTime?))
+                            .Adaptive(datetime => datetime.HasValue && DateTime.Equals(datetime.Value, default(DateTime)) ? default(DateTime?) : datetime)
                             .ToType<T>();
             }
             else if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
